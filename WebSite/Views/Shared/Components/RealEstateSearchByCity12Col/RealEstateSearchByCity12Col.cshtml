@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Address.City>
+
+<section class="min">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-7 col-md-8">
+				<div class="sec-heading center">
+                    <h2>
+                        جستجو بر اساس موقعیت
+                    </h2>
+                    <p>
+                       بهترین املاک را برای فروش ، اجاره و اقامت از ما بخواهید
+                    </p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+			@foreach (var item in Model.Take(6))
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a asp-controller="RealEstate" asp-action="Grid" asp-route-city="@item.Id" title="@item.Title" class="img-wrap style-2">
+                        <div class="location_wrap_content visible">
+                            <div class="location_wrap_content_first">
+                                <h4>
+                                    @item.Title
+                                </h4>
+                                <ul>
+                                    
+                                    <li>
+                                        <span>
+                                            جستجوی املاک در  @item.Title
+                                        </span>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="img-wrap-background" style="background-image: url(/upload/city/@item.Photo);"></div>
+                    </a>
+                </div>
+            }
+		</div>
+
+	</div>
+</section>
+
+

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Service.ServiceGroup>
+
+<section class="min">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-8">
+                <div class="sec-heading center">
+                    <h2>
+                        Dreamland Services
+                    </h2>
+                    <p>
+                        Introducing the services of Dreamland Consulting Group
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="wpk_process active">
+                        <div class="wpk_thumb">
+                            <div class="wpk_thumb_figure">
+                                <img src="/upload/service/@item.Photo" class="img-fluid" alt="@item.Title" />
+                            </div>
+                        </div>
+                        <div class="wpk_caption">
+                            <h4>
+                                @item.Title
+                            </h4>
+                            <p>
+                                @item.Summary
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+<div class="clearfix"></div>

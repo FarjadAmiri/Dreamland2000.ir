@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        @ViewData["Title"]
+    </title>
+
+    <partial name="_EnglishStylePartial" />
+    <partial name="_EnglishMetaPartial" />
+
+    <link rel="alternate" href="https://dreamland2000.ir" hreflang="en-es" />
+
+    <partial name="_GoogleSearchConsolePartial" />
+
+    @await RenderSectionAsync("PublicHeader", false)
+
+</head>
+
+<body class="yellow-skin">
+   
+    <div class="preloader"></div>
+
+    <div id="main-wrapper">
+
+        @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.Header))
+
+        <div class="clearfix"></div>
+
+        @RenderBody()
+        
+
+        @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.Footer))
+
+
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+    </div>
+    <partial name="_EnglishScriptPartial" />
+    <partial name="_GoogleReCaptchaPartial" />
+
+    @await RenderSectionAsync("PublicFooter", false)
+
+</body>
+</html>

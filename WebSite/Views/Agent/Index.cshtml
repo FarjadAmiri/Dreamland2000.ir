@@ -1,0 +1,99 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Agent.Agent>
+@{
+    ViewData["Title"] = "مشاوران دریملند";
+    ViewData["MetaDescription"] = "گروه مشاوران دریملند با تیم متخصص و کارشناسان با تجربه";
+}
+
+<div class="page-title" style="background:#f4f4f4 url(/design/banner/header01.jpg);" data-overlay="5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+
+				<div class="breadcrumbs-wrap">
+					<ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            مشاوران دریملند
+                        </li>
+					</ol>
+                    <h2 class="breadcrumb-title">
+						با مشاوران ما آشنا شوید
+                    </h2>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="gray min">
+	<div class="container">
+
+		<div class="row">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="grid_agents style-2">
+
+                        <div class="grid_agents-wrap">
+
+                            <div class="fr-grid-thumb">
+                                <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility">
+                                    <img src="/upload/agent/thumb/@item.Photo" class="img-fluid mx-auto" alt="">
+                                </a>
+                                <ul class="inline_social">
+                                    <li>
+                                        <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility">
+                                            <i class="ti-linkedin"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility">
+                                            <i class="ti-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility">
+                                            <i class="ti-twitter"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="fr-grid-deatil">
+                                <span>
+                                    @item.Responsibility
+                                </span>
+                                <h5 class="fr-can-name">
+                                    <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility">
+                                        @item.Name
+                                    </a>
+                                </h5>
+                            </div>
+
+                            <div class="fr-infos-deatil">
+                                <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility" class="btn agent-btn theme-bg">
+                                    <i class="fa fa-envelope ml-2"></i>
+                                    ارسال پیام
+                                </a>
+                                <a asp-controller="Agent" asp-action="Details" asp-route-id="@item.Id" title="@item.Name @item.Responsibility" class="btn agent-btn theme-black">
+                                    <i class="fa fa-phone"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+		</div>
+
+	</div>
+
+</section>

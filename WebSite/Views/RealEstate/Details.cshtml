@@ -1,0 +1,378 @@
+﻿@using Microsoft.IdentityModel.Tokens
+@using WebSite.Core.Utility
+@using ZXing.QrCode.Internal
+@model WebSite.DataLayer.Entities.RealEstate.RealEstate
+@{
+    ViewData["Title"] = Model!.Title;
+    ViewData["MetaDescription"] = Model.Title;
+    ViewData["MetaOgTitle"] = Model.Title;
+
+    ViewData["MetaOgDescription"] = Model.Summary!;
+    ViewData["MetaOgUrl"] = "https://dreamland2000.ir/realestate/" + Model.Id;
+
+    ViewData["MetaOgImage"] = "https://dreamland2000.ir/upload/realestate/thumb/" + Model.Photo;
+    ViewData["MetaOgImageUrl"] = "https://dreamland2000.ir/upload/realestate/thumb/" + Model.Photo;
+    ViewData["MetaOgImageAlt"] = Model.Title;
+    ViewData["MetaOgImageTitle"] = Model.Title;
+
+    var strPrice = "0";
+    if (Model.Price != null && Model.Price > 0)
+    {
+        strPrice = Convert.ToDouble(Model.Price.ToString()?.Replace(",", "")).ToString("n0") + " \u20ac";
+    }
+
+    var strArea = "0";
+    if (Model.Area != null && Model.Area > 0)
+    {
+        strArea = Convert.ToDouble(Model.Area.ToString()?.Replace(",", "")).ToString("n0") + " m\u00b2";
+    }
+}
+
+<div class="featured_slick_gallery gray">
+    <div class="featured_slick_gallery-slide">
+        <div class="featured_slick_padd">
+            <a href="/upload/realestate/@Model.Photo" class="mfp-gallery">
+                <img src="/upload/realestate/@Model.Photo" class="img-fluid mx-auto" alt="@Model.Title" style="height:400px"/>
+            </a>
+        </div>
+        @foreach (var item in Model.PhotoList!)
+        {
+            <div class="featured_slick_padd">
+                <a href="/upload/realestate/@item.Photo" class="mfp-gallery">
+                    <img src="/upload/realestate/@item.Photo" class="img-fluid mx-auto" alt="@item.Title" style="height:400px" />
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
+
+<section class="gallery_bottom_block">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12">
+
+                <div class="property_lexible-1">
+                    <div class="pr-price-into flex-1">
+                        <div class="_card_list_flex mb-2">
+                            <div class="_card_flex_01">
+                                <span class="_list_blickes _netork">
+                                    @Model.Group?.Title
+                                </span>
+                                <span class="_list_blickes types">
+                                    @Model.Type?.Title
+                                </span>
+                            </div>
+                        </div>
+                        <h2>
+                            @Model.Title
+                        </h2>
+                        <p>
+                            @Model.Location
+                        </p>
+                    </div>
+                    <div class="price_into_last">
+
+                        <h2>
+                            @strPrice
+                            @if (Model.GroupRefId == 2)
+                            {
+                                <span>
+                                   / @Model.RentPeriod?.Title
+                                </span>
+                            }
+                        </h2>
+                        <div class="list-fx-features">
+                            <div class="listing-card-info-icon">
+                                <span><img src="/website/img/bed.svg" alt="@Model.Title">
+                                    @Model.RoomCount</span>
+                            </div>
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/website/img/bath.svg" alt="@Model.Title">
+                                    @Model.BathroomCount</span>
+                            </div>
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/website/img/area.svg" alt="@Model.Title">
+                                    @strArea
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="gray">
+	<div class="container">
+		<div class="row">
+            
+			<div class="col-lg-8 col-md-12 col-sm-12">
+              
+				<div class="property_block_wrap">
+
+					<div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            درباره ملک
+                        </h4>
+					</div>
+
+                    <div class="block-body">
+                        <p style="text-align:justify">
+							@Html.Raw(Model.Summary)
+                        </p>
+					</div>
+
+				</div>
+
+				
+				<div class="property_block_wrap">
+
+					<div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            ویژگی ها 
+                        </h4>
+					</div>
+
+					<div class="block-body">
+                        <ul class="row p-0 m-0">
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                مساحت : @strArea
+                            </li>
+
+                            @if (Model.BaseArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    زیربنا : @Model.BaseArea M
+                                </li>
+                            }
+                            
+                            @if (Model.LandArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    زمین : @Model.LandArea M
+                                </li>
+                            }
+                            
+                            @if (Model.TerraceArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    تراس : @Model.TerraceArea M
+                                </li>
+                            }
+                            
+                            @if (Model.YardArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    حیاط : @Model.YardArea M
+                                </li>
+                            }
+                            
+                            @if (Model.Floor != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-house-damage ml-1"></i>
+                                    طبقه : @Model.Floor
+                                </li>
+                            }
+                            
+                            @if (Model.Unit != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-house-damage ml-1"></i>
+                                    واحد : @Model.Unit
+                                </li>
+                            }
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-bed ml-1"></i>
+                                اتاق : @Model.RoomCount 
+                            </li>
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-bath ml-1"></i>
+                                حمام : @Model.BathroomCount 
+                            </li>
+                            
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-car ml-1"></i>
+                                پارکینگ : @Model.ParkingCount 
+                            </li>
+                            
+                            @if (Model.BuildYear != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-building ml-1"></i>
+                                    ساخت : @Model.BuildYear
+                                </li>
+                            }
+
+                            @if (Model.UnitCharge != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-dollar-sign ml-1"></i>
+                                    شارژ : @Model.UnitCharge
+                                </li>
+                            }
+                            
+                            @if (Model.GarbageCost != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-dollar-sign ml-1"></i>
+                                    زباله : @Model.GarbageCost
+                                </li>
+                            }
+
+                            @if (Model.UsageRefId != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-spa ml-1"></i>
+                                    استفاده : @Model.Usage?.Title
+                                </li>
+                            }
+                        </ul>
+					</div>
+
+				</div>
+
+				
+				@if (Model.OptionList!.Any())
+                {
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">
+                                امکانات رفاهی
+                            </h4>
+                        </div>
+
+                        <div class="block-body">
+                            <ul class="avl-features third">
+                                @foreach (var item in Model.OptionList!)
+                                {
+                                    <li class="active">
+                                        @item.Option!.Title
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                }
+
+				@if (!Model.Iframe.IsNullOrEmpty())
+                {
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">موقعیت</h4>
+                        </div>
+
+                        <div class="block-body">
+                            <div class="map-container">
+                                @Model.Iframe
+                            </div>
+                        </div>
+                    </div>
+                }
+
+				
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            نظرات
+                            @Model.CommentList!.Count
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <div class="author-review">
+                            <div class="comment-list">
+                                <ul>
+                                    @foreach (var item in Model.CommentList.Take(5))
+                                    {
+                                        <li class="article_comments_wrap">
+                                            <article>
+                                                <div class="article_comments_thumb">
+                                                    <img src="design/user.jpg" alt="@item.Name">
+                                                </div>
+                                                <div class="comment-details">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-left-meta">
+                                                            <h4 class="author-name">
+                                                                @item.Name
+                                                            </h4>
+                                                            <div class="comment-date">
+                                                                @if (item.SendDate != null)
+                                                                {
+                                                                    @item.SendDate.Value.GregorianToPersian()
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p style="text-align:justify">
+                                                            @item.Comment	
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    }
+									
+                                </ul>
+                            </div>
+                        </div>
+                       @if (Model.CommentList.Count() > 5)
+                        {
+                            <a asp-controller="RealEstate" asp-action="CommentList" asp-route-id="@Model.Id" class="reviews-checked">
+                                نظرات بیشتر
+                            </a>
+                        }
+                    </div>
+
+                </div>
+
+				
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.RealEstateSendCommentForm),new{id = Model.Id})
+
+			</div>
+
+			<!-- property Sidebar -->
+			<div class="col-lg-4 col-md-12 col-sm-12">
+
+				<div class="property-sidebar">
+
+                    @await Component.InvokeAsync(typeof(WebSite.ViewComponents.RealEstateSearch3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.ViewComponents.RealEstateGroupList3Col))
+
+					@if (Model.AgentRefId != null)
+                    {
+                        @await Component.InvokeAsync(typeof(WebSite.ViewComponents.AgentProfile3ColByAgentId),new{id = Model.AgentRefId})
+                    }
+                    
+                    @await Component.InvokeAsync(typeof(WebSite.ViewComponents.RealEstateCityList3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.ViewComponents.RealEstateLatestList3Col))
+                    
+                    @await Component.InvokeAsync(typeof(WebSite.ViewComponents.RealEstateTypeList3Col))
+
+					
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

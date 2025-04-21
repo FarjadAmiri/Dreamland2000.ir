@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstatePhoto>
+@{
+    int i = 0;
+}
+
+<div class="dataTables_wrapper container-fluid">
+    <table class="table table-striped">
+        <thead>
+            <tr role="row">
+                <th style="text-align: center">
+                    #
+                </th>
+
+                <th style="text-align: center">
+                    Photo
+                </th>
+
+                <th style="text-align: center">
+                    Title
+                </th>
+
+                <th style="text-align: center">
+                    Upload Date
+                </th>
+
+                <th style="text-align: center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                i++;
+                string strRemoveId = "photo-delete-confirm-" + item.Id;
+
+                <tr role="row" class="odd">
+                    <td style="text-align: center">
+                        @i
+                    </td>
+
+                    <td style="text-align: center">
+                        <img src="/upload/realestate/thumb/@item.Photo" style="width: 80px; height: 60px;" />
+                    </td>
+
+                    <td style="text-align: center">
+                        @item.Title
+                        <br />
+                        @if (item.RealEstateRefId != null)
+                        {
+                            <a asp-controller="RealEstateAdminArea" asp-action="Details" asp-route-id="@item.RealEstateRefId">
+                                @item.RealEstate?.Title
+                            </a>
+                        }
+                    </td>
+
+                    <td style="text-align: center">
+                        @if (item.UploadDate != null)
+                        {
+                            @item.UploadDate.Value.ToShortDateString()
+                        }
+                        <br/>
+                        Sort : @item.Sort
+                    </td>
+
+                    <td style="text-align: center">
+                        <a data-toggle="modal" data-target="#@strRemoveId" class="btn btn-danger btn-sm text-white" title="Remove Photo">
+                            <i class="fa fa-trash text-white"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@foreach (var item in Model)
+{
+    string strRemovePhotoId = "photo-delete-confirm-" + item.Id;
+
+    <div class="modal fade" id="@strRemovePhotoId" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeModalLabel">
+                        Warning
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the selected photo?
+                </div>
+                <div class="modal-footer">
+                    <form asp-controller="RealEstateAdminArea" asp-action="DeletePhoto" asp-route-id="@item.Id" method="get">
+                        <button type="submit" class="btn btn-danger" style="margin-left: 10px;">
+                            Accept
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+Cancel
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

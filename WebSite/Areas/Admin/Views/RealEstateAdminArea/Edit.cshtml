@@ -1,0 +1,405 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using WebSite.DataLayer.Entities.RealEstate
+@model WebSite.Core.ViewModel.RealEstate.UpdateRealEstateByAdminViewModel
+
+@{
+    ViewData["Title"] = "Update Property";
+    
+    var optionList = ViewBag.OptionList as IEnumerable<RealEstateOption>;
+    var selectedOptionList = ViewBag.SelectedOptionList as IEnumerable<RealEstateJoinOption>;
+
+    var strPrice = "0";
+    if (Model.Price != null && Model.Price > 0)
+    {
+        strPrice = Convert.ToDouble(Model.Price.ToString()?.Replace(",", "")).ToString("n0");
+    }
+   
+}
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            Home Page
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="RealEstateAdminArea" asp-action="Index">
+                            Real estate
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        Update Property
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="from-actions-top-bottom-center">
+                    @{
+                        var flag = Model.LanguageShortTitle + ".png";
+                    }
+                    Update Property (@Model.LanguageEnglishTitle <img src="/design/flags/@flag" style="width:30px" />)
+                </h4>
+                <a class="heading-elements-toggle">
+                    <i class="fa fa-ellipsis-v font-medium-3"></i>
+                </a>
+                <hr />
+            </div>
+            <div class="collpase show">
+                <div class="card-body">
+                    <partial name="_AlertPartial" />
+
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" asp-for="RealEstateRefId" />
+                        <input type="hidden" asp-for="LanguageEnglishTitle" />
+                        <input type="hidden" asp-for="LanguageRefId" />
+                        <input type="hidden" asp-for="LanguageShortTitle" />
+                        <input type="hidden" asp-for="Photo" />
+
+                        <div class="row">
+                            <div class="col-lg-4">
+
+                                <div class="form-group row">
+                                    <label asp-for="Title" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Title" class="form-control">
+                                        <span asp-validation-for="Title" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Code" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Code" class="form-control">
+                                        <span asp-validation-for="Code" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Tags" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Tags" class="form-control" placeholder="Seperator: ','">
+                                        <span asp-validation-for="Tags" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Location" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Location" class="form-control">
+                                        <span asp-validation-for="Location" class="alert-danger"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label asp-for="GroupRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="GroupRefId" asp-items="ViewBag.GroupRefId">
+                                            <option value="">--Select group--</option>
+                                        </select>
+                                        <span asp-validation-for="GroupRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="TypeRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="TypeRefId" asp-items="ViewBag.TypeRefId">
+                                            <option value="">--Select type--</option>
+                                        </select>
+                                        <span asp-validation-for="TypeRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                             
+
+                                <div class="form-group row">
+                                    <label asp-for="RentPeriodRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="RentPeriodRefId" asp-items="ViewBag.RentPeriodRefId">
+                                            <option value="">--Select rental period--</option>
+                                        </select>
+                                        <span asp-validation-for="RentPeriodRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="UsageRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="UsageRefId" asp-items="ViewBag.UsageRefId">
+                                            <option value="">--Select Usage--</option>
+                                        </select>
+                                        <span asp-validation-for="UsageRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="CityRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="CityRefId" asp-items="ViewBag.CityRefId">
+                                            <option value="">--Select city--</option>
+                                        </select>
+                                        <span asp-validation-for="CityRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label asp-for="StatusRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="StatusRefId" asp-items="ViewBag.StatusRefId">
+                                            <option value="">--Select status--</option>
+                                        </select>
+                                        <span asp-validation-for="StatusRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label asp-for="AgentRefId" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2" asp-for="AgentRefId" asp-items="ViewBag.AgentRefId">
+                                            <option value="">--Select agent--</option>
+                                        </select>
+                                        <span asp-validation-for="AgentRefId" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="form-group row">
+                                    <label asp-for="HeatingSystem" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="HeatingSystem" class="form-control" placeholder="ex: Heater and package">
+                                        <span asp-validation-for="HeatingSystem" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="CoolingSystem" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="CoolingSystem" class="form-control" placeholder="ex: Air conditioning">
+                                        <span asp-validation-for="CoolingSystem" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">
+                                        Select Photo
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="file" id="uploadPhotos" name="uploadPhotos" multiple class="form-control">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-body">
+                                    <h4 class="form-section">
+                                        Property
+                                    </h4>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="BuildYear"></label>
+                                            <input type="text" asp-for="BuildYear" class="form-control" placeholder="ex: 20years old or 1995 ">
+                                            <span asp-validation-for="BuildYear" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="EnergyGrade"></label>
+                                            <input type="text" asp-for="EnergyGrade" class="form-control" placeholder="ex: Grade A,B,C">
+                                            <span asp-validation-for="EnergyGrade" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="Floor"></label>
+                                            <input type="text" asp-for="Floor" class="form-control" placeholder="ex: 2 of 20">
+                                            <span asp-validation-for="Floor" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="Unit"></label>
+                                            <input type="text" asp-for="Unit" class="form-control" placeholder="ex: 10 unit per floor">
+                                            <span asp-validation-for="Unit" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-4 mb-2">
+                                            <label asp-for="RoomCount"></label>
+                                            <input type="number" asp-for="RoomCount" class="form-control" >
+                                            <span asp-validation-for="RoomCount" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-4 mb-2">
+                                            <label asp-for="BathroomCount"></label>
+                                            <input type="number" asp-for="BathroomCount" class="form-control" >
+                                            <span asp-validation-for="BathroomCount" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-4 mb-2">
+                                            <label asp-for="ParkingCount"></label>
+                                            <input type="number" asp-for="ParkingCount" class="form-control" >
+                                            <span asp-validation-for="ParkingCount" class="alert-danger"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-body">
+                                    <h4 class="form-section">
+                                        Area (Meter)
+                                    </h4>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="Area"></label>
+                                            <input type="number" asp-for="Area" class="form-control">
+                                            <span asp-validation-for="Area" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="BaseArea"></label>
+                                            <input type="number" asp-for="BaseArea" class="form-control">
+                                            <span asp-validation-for="BaseArea" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="YardArea"></label>
+                                            <input type="number" asp-for="YardArea" class="form-control" >
+                                            <span asp-validation-for="YardArea" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="TerraceArea"></label>
+                                            <input type="number" asp-for="TerraceArea" class="form-control" >
+                                            <span asp-validation-for="TerraceArea" class="alert-danger"></span>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="LandArea"></label>
+                                            <input type="number" asp-for="LandArea" class="form-control" >
+                                            <span asp-validation-for="LandArea" class="alert-danger"></span>
+                                        </div>
+                                        
+                                     
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="DirectionRefId"></label>
+                                            <select class="form-control" asp-for="DirectionRefId" asp-items="ViewBag.DirectionRefId">
+                                                <option value="">--Select Direction--</option>
+                                            </select>
+                                            <span asp-validation-for="DirectionRefId" class="alert-danger"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-body">
+                                    <h4 class="form-section">
+                                        Price (Euro)
+                                    </h4>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="Price"></label>
+                                            <input type="text" asp-for="Price" class="form-control number" value="@strPrice">
+                                            <span asp-validation-for="Price" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="GarbageCost"></label>
+                                            <input type="text" asp-for="GarbageCost" class="form-control" placeholder="ex:100€ per year">
+                                            <span asp-validation-for="GarbageCost" class="alert-danger"></span>
+                                        </div>
+
+                                        <div class="form-group col-md-6 mb-2">
+                                            <label asp-for="UnitCharge"></label>
+                                            <input type="text" asp-for="UnitCharge" class="form-control" placeholder="ex:20€ monthly">
+                                            <span asp-validation-for="UnitCharge" class="alert-danger"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <h4 class="form-section">
+                                    Description
+                                </h4>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <textarea asp-for="Summary" rows="16" class="form-control"></textarea>
+                                        <span asp-validation-for="Summary" class="alert-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <hr />
+                                <div class="form-group text-center">
+                                    <input type="submit" class="btn btn-info" value="Save Now" />
+                                    <a asp-controller="RealEstateAdminArea" asp-action="Details" asp-route-id="@Model.RealEstateRefId" class="btn btn-dark">
+                                        Back
+                                    </a>
+                                </div>
+                            </div>
+
+                        <div class="col-md-12">
+                            <h4>
+                                Options
+                            </h4>
+                            <hr />
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                  
+                                        <div class="row" style="margin-bottom:50px;">
+                                            @foreach (var opt in optionList)
+                                            {
+                                                <div class="col-md-3">
+                                                    <input type="checkbox" name="selectedOption" value="@opt.Id" id="@opt.Id" @((selectedOptionList.Any(r => r.OptionRefId == opt.Id) ? "checked" : ""))>
+                                                    <label for="@opt.Id" style="margin-top: 10px;">
+                                                        @opt.Title
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AdminFooter {
+    <partial name="_UploadPhotoScriptPartial" />
+    <partial name="_CkEditorSummaryWithoutToolbarScriptPartialEnglish" />
+    <partial name="_NumberScriptPartial" />
+}

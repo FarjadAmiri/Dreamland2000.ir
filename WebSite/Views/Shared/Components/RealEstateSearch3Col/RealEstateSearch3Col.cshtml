@@ -1,0 +1,14 @@
+﻿@model WebSite.Core.ViewModel.RealEstate.RealEstateSearchViewModel
+
+<div class="single_widgets widget_search">
+    <h4 class="title">
+        جستجو
+    </h4>
+    <hr/>
+    <form asp-controller="RealEstate" asp-action="Search" method="post" class="sidebar-search-form">
+        <input asp-for="SearchText" type="search" name="search" placeholder="جستجو ...">
+        <button type="submit">
+            <i class="ti-search"></i>
+        </button>
+    </form>
+</div>

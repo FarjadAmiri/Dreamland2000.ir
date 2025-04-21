@@ -1,0 +1,138 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Agent.Agent>
+@{
+    int i = 0;
+}
+
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid">
+    <table class="table table-striped table-bordered" role="grid" aria-describedby="DataTables_Table_0_info">
+        <thead>
+            <tr role="row">
+                <th style="text-align: center">
+                    #
+                </th>
+
+                <th style="text-align: center">
+                    Photo
+                </th>
+
+                <th style="text-align: center">
+                    Agent
+                </th>
+
+                <th style="text-align: center">
+                    Sort / Visit
+                </th>
+                
+                <th style="text-align: center">
+                    Language
+                </th>
+
+                <th style="text-align: center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                string strRemoveId = "agent-delete-confirm-" + item.Id;
+                var languagePhotoName = item.Language?.ShortTitle + ".png";
+                string areaName = "";
+                if (item.LanguageRefId == 2)
+                {
+                    areaName = "English";
+                }
+                if (item.LanguageRefId == 3)
+                {
+                    areaName = "Spanish";
+                }
+                <tr role="row" class="odd">
+                    <td style="text-align: center">
+                        @i
+                    </td>
+
+                    <td style="text-align: center">
+                        <img src="/upload/agent/thumb/@item.Photo" style="width: 60px; height: 60px;" />
+                    </td>
+
+                    <td style="text-align: center">
+                        @item.Name
+                        <br />
+                        @item.Responsibility
+                        <br/>
+                        @item.Email / @item.Tell
+                    </td>
+
+                    <td style="text-align: center">
+                        Sort : @item.Sort 
+                        <br/>
+                        Visit:  @item.Visit
+                    </td>
+
+                    <td style="text-align: center">
+                        @item.Language?.TitleEnglish
+                        <br />
+                        <img src="/design/flags/@languagePhotoName" style="width:30px;height:20px" />
+                    </td>
+
+                    <td style="text-align: center">
+                        <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" asp-area="@areaName" target="_blank" class="btn btn-primary btn-sm">
+                            <i class="fa fa-eye text-white"></i>
+                        </a>
+
+                        <a asp-controller="AgentAdminArea" asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">
+                            <i class="fa fa-search text-white"></i>
+                        </a>
+
+                        <a asp-controller="AgentAdminArea" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                            <i class="fa fa-edit text-white"></i>
+                        </a>
+
+                        <a data-toggle="modal" data-target="#@strRemoveId" class="btn btn-danger btn-sm text-white">
+                            <i class="fa fa-trash text-white"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@foreach (var item in Model)
+{
+    
+    string strRemoveId = "agent-delete-confirm-" + item.Id;
+
+    <div class="modal fade" id="@strRemoveId" tabindex="-1" role="dialog" aria-labelledby="removeLabelModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeLabelModal">
+                        Warning
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the selected agent?
+                </div>
+                <div class="modal-footer">
+                    <form asp-controller="AgentAdminArea" asp-action="Delete" asp-route-id="@item.Id" method="get">
+                        <button type="submit" class="btn btn-danger" style="margin-left: 10px;">
+                            Accept
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+Cancel
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

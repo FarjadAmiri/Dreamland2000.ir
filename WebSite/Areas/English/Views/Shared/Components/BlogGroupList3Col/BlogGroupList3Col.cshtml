@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Blog.BlogGroup>
+
+<div class="single_widgets widget_category">
+    <h4 class="title">
+        Article categories
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model!)
+        {
+            <li>
+                <a asp-controller="Blog" asp-action="Index" asp-route-group="@item.Id" title="@item.Title">
+                    @item.Title
+                   @*  <span>+50</span> *@
+                </a>
+            </li>          
+        }
+        <li>
+            <a asp-controller="Blog" asp-action="Index" title="All articles...">
+                All articles...
+            </a>
+        </li>
+        
+    </ul>
+</div>

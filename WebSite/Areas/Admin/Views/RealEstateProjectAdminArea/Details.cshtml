@@ -1,0 +1,390 @@
+﻿@using WebSite.Core.Utility
+@model WebSite.DataLayer.Entities.RealEstate.RealEstateProject
+
+@{
+    ViewData["Title"] = "Project Profile";
+
+    var strStatus = Model.Status?.Title;
+    var strAgent = Model.Agent?.Name;
+    var strCity = Model.City?.Title;
+
+    var strRegisterDate = "";
+    if (Model.RegisterDate != null)
+    {
+        strRegisterDate = Model.RegisterDate.Value.ToShortDateString();
+    }
+
+    var strLastUpdate = "";
+    if (Model.LastUpdate != null)
+    {
+        strLastUpdate = Model.LastUpdate.Value.ToShortDateString();
+    }
+
+    //language
+    var areaName = "";
+    @if (Model.LanguageRefId == 2)
+    {
+        areaName = "English";
+    }
+    @if (Model.LanguageRefId == 3)
+    {
+        areaName = "Spanish";
+    }
+
+
+
+}
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            Home Page
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="RealEstateProjectAdminArea" asp-action="Index">
+                            Project
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Project Profile
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="from-actions-top-bottom-center">
+                    Project Profile
+                </h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <hr />
+                <p>
+                    <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@Model.Id" asp-area="@areaName" target="_blank" class="btn btn-primary">
+                        Preview
+                    </a>
+
+                    <a asp-controller="RealEstateProjectAdminArea" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">
+                        Update
+                    </a>
+
+                    <a asp-controller="RealEstateProjectAdminArea" asp-action="UpdatePhotoList" asp-route-id="@Model.Id" class="btn btn-info">
+                        Photos Sort
+                    </a>
+
+                    <a asp-controller="RealEstateProjectAdminArea" asp-action="UploadMulti" asp-route-id="@Model.Id" class="btn btn-warning">
+                        Upload image
+                    </a>
+
+                    <a data-toggle="modal" data-target="#delete-confirm" class="btn btn-danger text-white">
+                        Remove
+                    </a>
+                    <a asp-controller="RealEstateProjectAdminArea" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-secondary">
+                        Back
+                    </a>
+                </p>
+                <partial name="_AlertPartial" />
+            </div>
+            <div class="collpase show">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Language
+                                </label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="@Model.Language?.TitleEnglish" class="form-control" disabled="disabled">
+                                </div>
+                                <div class="col-sm-2">
+                                    @{
+                                        var flag = Model.Language?.ShortTitle + ".png";
+                                    }
+                                    <img src="/design/flags/@flag" style="width:100%" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Title
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Title" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Short Title
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="ShortTitle" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Code
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Code" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Tags
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Tags" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Area
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Area" class="form-control" disabled="disabled">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Price
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Price" class="form-control" disabled="disabled">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Room
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Room" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Bathroom
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Bathroom" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    City
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strCity" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Location
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Location" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Register Date
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strRegisterDate" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Last Update
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strLastUpdate" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Visit
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Visit" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Status
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strStatus" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Agent
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strAgent" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group row">
+                                <img src="/upload/realestate/thumb/@Model.Photo" id="image" style="width: 100%; height: 100%" class="img-thumbnail" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div id="recent-transactions" class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    Profile
+                </h4>
+                <a class="heading-elements-toggle">
+                    <i class="fa fa-ellipsis-v font-medium-3"></i>
+                </a>
+                <hr />
+            </div>
+            <div class="card-content">
+                <ul class="nav nav-tabs nav-linetriangle no-hover-bg">
+                  
+                    <li class="nav-item">
+                        <a class="nav-link active" id="base-photo-tab" data-toggle="tab" aria-controls="photo-tab" href="#photo-tab" aria-expanded="true">
+                            Photo List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="base-description-tab" data-toggle="tab" aria-controls="description-tab" href="#description-tab" aria-expanded="false">
+                            Description
+                        </a>
+                    </li>
+
+                   
+
+                </ul>
+                <div class="tab-content px-1 pt-1">
+                    <div role="tabpanel" class="tab-pane active" id="photo-tab" aria-expanded="true" aria-labelledby="base-photo-tab">
+                        <a data-toggle="modal" data-target="#delete-all-photo-confirm" class="btn btn-danger btn-sm text-white">
+                            Remove All Photos
+                        </a>
+                        <a asp-controller="RealEstateProjectAdminArea" asp-action="RemoveSelectedPhoto" asp-route-id="@Model.Id" class="btn btn-danger btn-sm text-white">
+                            Remove Selected Photos
+                        </a>
+                        <a asp-controller="RealEstateProjectAdminArea" asp-action="UploadMulti" asp-route-id="@Model.Id" class="btn btn-warning btn-sm text-white">
+                            Upload More
+                        </a>
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.Admin.ViewComponents.RealEstateProjectPhotoListByProjectId), new { id = Model.Id })
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="description-tab" aria-expanded="false" aria-labelledby="base-description-tab">
+                        @Html.Raw(Model.Summary)
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="delete-confirm" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeModalLabel">
+                    Warning
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the selected property?
+            </div>
+            <div class="modal-footer">
+                <form asp-controller="RealEstateProjectAdminArea" asp-action="Delete" asp-route-id="@Model.Id" method="get">
+                    <button type="submit" class="btn btn-danger" style="margin-left:10px;">
+                        Accept
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="delete-all-photo-confirm" tabindex="-1" role="dialog" aria-labelledby="removephotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removephotoModalLabel">
+                    Warning
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete property photos?
+            </div>
+            <div class="modal-footer">
+                <form asp-controller="RealEstateProjectAdminArea" asp-action="DeleteAllPhoto" asp-route-id="@Model.Id" method="get">
+                    <button type="submit" class="btn btn-danger" style="margin-left:10px;">
+                        Accept
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstateGroup>
+
+<section class="gray-simple min">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="sec-heading center">
+                    <h2>
+                        Special properties
+                    </h2>
+                    <p>
+                        Search for your needs by Dreamland
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @foreach (var item in Model.Take(4))
+            {
+                <div class="col-lg col-md-4">
+
+                    <div class="property_cats_boxs">
+                        <a asp-controller="RealEstate" asp-action="Grid" asp-route-group="@item.Id" title="@item.Title" class="category-box">
+                            <div class="property_category_short">
+                                <div class="category-icon clip-1">
+                                    <i class="@item.Icon"></i>
+                                </div>
+
+                                <div class="property_category_expand property_category_short-text">
+                                    <h4>
+                                        @item.Title
+                                    </h4>
+                                    <p>
+                                        +100
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

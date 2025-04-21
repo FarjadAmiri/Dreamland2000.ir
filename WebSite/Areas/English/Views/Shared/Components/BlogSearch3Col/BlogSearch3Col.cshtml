@@ -1,0 +1,11 @@
+﻿@model WebSite.Core.ViewModel.Blog.BlogSearchViewModel
+
+<div class="single_widgets widget_search">
+    <h4 class="title">
+        Search
+    </h4>
+    <form asp-controller="Blog" asp-action="Search" method="post" class="sidebar-search-form">
+        <input type="search" asp-for="SearchText" placeholder="Search ...">
+        <button type="submit"><i class="ti-search"></i></button>
+    </form>
+</div>

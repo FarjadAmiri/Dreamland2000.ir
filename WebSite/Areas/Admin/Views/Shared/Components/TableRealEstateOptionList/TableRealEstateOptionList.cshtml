@@ -1,0 +1,84 @@
+﻿@using WebSite.Core.Utility
+@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstateJoinOption>
+@{
+    int i = 0;
+}
+
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid">
+    <table class="table table-striped table-bordered" role="grid" aria-describedby="DataTables_Table_0_info">
+        <thead>
+            <tr role="row">
+                <th style="text-align: center">
+                    #
+                </th>               
+
+                <th style="text-align: center">
+                    Option
+                </th>
+
+                <th style="text-align: center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                string strRemoveId = "option-delete-confirm-" + item.JoinId;
+                <tr role="row" class="odd">
+                    <td style="text-align: center">
+                        @i
+                    </td>
+
+                    <td style="text-align: center">
+                        @item.Option?.Title
+                    </td>
+
+                    <td style="text-align: center">
+                        <a data-toggle="modal" data-target="#@strRemoveId" class="btn btn-danger btn-sm text-white">
+                            <i class="fa fa-trash text-white"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@foreach (var item in Model)
+{
+    string strRemoveId = "option-delete-confirm-" + item.JoinId;
+
+    <div class="modal fade" id="@strRemoveId" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeModalLabel">
+                        Warning
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the selected option?
+                </div>
+                <div class="modal-footer">
+                    <form asp-controller="RealEstateAdminArea" asp-action="DeleteOption" asp-route-id="@item.JoinId" method="get">
+                        <button type="submit" class="btn btn-danger" style="margin-left: 10px;">
+                            Accept
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

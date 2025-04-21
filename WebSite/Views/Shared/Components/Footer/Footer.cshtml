@@ -1,0 +1,176 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using WebSite.DataLayer.Entities.About
+@using WebSite.DataLayer.Entities.Contact
+@using WebSite.DataLayer.Entities.RealEstate
+@{
+    var contact = ViewBag.Contact as Contact;
+    var realEstateGroupList = ViewBag.RealEstateGroupList as IEnumerable<RealEstateGroup>;
+    var about = ViewBag.About as About;
+}
+
+<div class="clearfix"></div>
+
+@await Component.InvokeAsync(typeof(WebSite.ViewComponents.Contact12Col))
+
+<footer class="dark-footer skin-dark-footer style-2">
+	<div class="footer-middle">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-5 col-md-5">
+					<div class="footer_widget">
+						<img src="/design/logo/Logo03-s.png" class="img-footer small mb-2" alt="" />
+                        <h4 class="extream mb-3">
+                            @about!.Title
+                        </h4>
+                        <p style="text-align:justify">
+                            @if (about.Summary!.Length > 250)
+                            {
+                                @about.Summary.Substring(0, 249)
+                                <span>...</span>
+                            }
+                            else
+                            {
+                                @about.Summary
+                            }
+                        </p>
+						<div class="foot-news-last">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="آدرس ایمیل">
+								<div class="input-group-append">
+									<button type="button" class="input-group-text theme-bg b-0 text-light">اشتراک</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-7 mr-auto">
+					<div class="row">
+
+						<div class="col-lg-4 col-md-4">
+							<div class="footer_widget">
+                                <h4 class="widget_title">
+									نقشه سایت
+                                </h4>
+								<ul class="footer-menu">
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Index">
+                                            صفحه اصلی
+                                        </a>
+                                    </li>
+                                    <li>
+										<a asp-controller="About" asp-action="Index">
+                                            درباره ما
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Service" asp-action="Index">
+                                            معرفی خدمات
+                                        </a>
+                                    </li>
+                                    <li>
+										<a asp-controller="Contact" asp-action="Index">
+                                            تماس با ما
+                                        </a>
+                                    </li>
+                                    <li>
+										<a asp-controller="Blog" asp-action="Index">
+                                            مجله دریملند
+                                        </a>
+                                    </li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="footer_widget">
+                                <h4 class="widget_title">
+                                    جستجوی املاک
+                                </h4>
+                                <ul class="footer-menu">
+                                    @foreach (var item in realEstateGroupList!)
+                                    {
+                                        <li>
+                                            <a asp-controller="RealEstate" asp-action="Grid" asp-route-group="@item.Id" title="@item.Title">
+                                                @item.Title
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4">
+							<div class="footer_widget">
+                                <h4 class="widget_title">
+                                    حساب کاربری
+                                </h4>
+                                <ul class="footer-menu">
+                                    @if (User.Identity!.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a asp-controller="Home" asp-action="Index" asp-area="User">
+                                                پیشخوان کاربری
+                                            </a>
+                                        </li>
+                                        @if (ViewBag.IsAdmin)
+                                        {
+                                            <li>
+                                                <a asp-controller="Home" asp-action="Index" asp-area="Admin">
+                                                    پیشخوان مدیریت
+                                                </a>
+                                            </li>
+                                        }
+                                        <li>
+                                            <a asp-controller="Account" asp-action="Logout">
+                                                خروج
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-controller="Account" asp-action="Login">
+                                                ورود به پیشخوان
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a asp-controller="Account" asp-action="Register">
+                                                ثبت نام
+                                            </a>
+                                        </li>
+                                    }
+                                   </ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-12 col-md-12 text-center">
+                    <p class="mb-0">
+                        @@1404
+                        طراحی و اجرا
+                        <a href="https://farjadtech.com" target="_blank">
+                            گروه نرم افزاری فرجاد
+                        </a>
+                    </p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<a id="back2Top" class="top-scroll" title="Back to top" href="#">
+    <i class="ti-arrow-up"></i>
+</a>
+
+

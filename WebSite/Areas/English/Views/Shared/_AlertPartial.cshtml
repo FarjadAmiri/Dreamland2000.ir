@@ -1,0 +1,19 @@
+﻿@if (TempData["AlertMessage"] != null)
+{
+    <div class="card-text">
+        <div class="alert alert-icon-right @TempData["AlertType"] alert-dismissible mb-2" role="alert">
+            <span class="alert-icon"><i class="fa fa-info"></i></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong> @TempData["AlertMessage"]</strong>
+        </div>
+    </div>
+    TempData["AlertMessage"] = null;
+    TempData["AlertType"] = null;
+}
+
+
+
+
+

@@ -1,0 +1,63 @@
+﻿@model WebSite.Core.ViewModel.Blog.BlogSendCommentViewModelSpanish
+
+
+<div class="property_block_wrap">
+
+    <div class="property_block_wrap_header">
+        <h4 class="property_block_title">
+            Publicar comentario
+        </h4>
+    </div>
+
+    <div class="block-body">
+
+        <form asp-controller="Blog" asp-action="SendComment" method="post">
+
+            <input type="hidden" asp-for="BlogRefId" />
+            <input type="hidden" asp-for="Captcha" />
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" type="text" class="form-control">
+                        <span asp-validation-for="Name" class="alert-danger" style="color: red"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Tell"></label>
+                        <input asp-for="Tell" type="text" class="form-control">
+                        <span asp-validation-for="Tell" class="alert-danger" style="color: red"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" type="text" class="form-control">
+                        <span asp-validation-for="Email" class="alert-danger" style="color: red"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Comment"></label>
+                        <textarea asp-for="Comment" class="form-control ht-80"></textarea>
+                        <span asp-validation-for="Comment" class="alert-danger" style="color: red"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <button class="btn btn-danger full-width fw-medium" type="submit">
+                            Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

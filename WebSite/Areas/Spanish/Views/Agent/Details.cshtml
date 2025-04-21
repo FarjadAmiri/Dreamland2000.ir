@@ -1,0 +1,161 @@
+﻿@model WebSite.DataLayer.Entities.Agent.Agent
+@{
+    ViewData["Title"] = Model.Name;
+    ViewData["MetaDescription"] = Model.Name;
+    ViewData["MetaOgTitle"] = Model.Name;
+
+    ViewData["MetaOgDescription"] = Model.Summary!;
+    ViewData["MetaOgUrl"] = "https://dreamland2000.ir/en/agent/" + Model.Id;
+
+    ViewData["MetaOgImage"] = "https://dreamland2000.ir/upload/agent/thumb/" + Model.Photo;
+    ViewData["MetaOgImageUrl"] = "https://dreamland2000.ir/upload/agent/thumb/" + Model.Photo;
+    ViewData["MetaOgImageAlt"] = Model.Name;
+    ViewData["MetaOgImageTitle"] = Model.Name;
+}
+
+<div class="page-title" style="background:#f4f4f4 url(/english/img/slider-3.jpg);" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap position-relative z-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Agent
+                        </li>
+                    </ol>
+                    <h2 class="breadcrumb-title">
+                        @Model.Name
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<section class="gray">
+    <div class="container">
+        <div class="row">
+            
+            <partial name="_AlertPartial" />
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            @Model.Name profile
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <p>
+                            @Model.Summary
+                        </p>
+                        <ul class="social-icons">
+                            <li>
+                                <a class="facebook" href="#">
+                                    <i class="lni-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="twitter" href="#">
+                                    <i class="lni-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="linkedin" href="#">
+                                    <i class="lni-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="linkedin" href="#">
+                                    <i class="lni-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="_prtis_list mb-4">
+                    <div class="_prtis_list_header">
+                        <ul>
+                            <li>
+                                <div class="content_thumb">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="content">
+                                    <span class="dark">
+                                        @Model.Email
+                                    </span>
+                                    <span class="title">
+                                        Email
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="content_thumb">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="content">
+                                    <span class="dark">
+                                        @Model.Tell
+                                    </span>
+                                    <span class="title">
+                                        Phone
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="content_thumb">
+                                    <i class="fa fa-map-marker-alt"></i>
+                                </div>
+                                <div class="content">
+                                    <span class="dark">
+                                        @Model.Address
+                                    </span>
+                                    <span class="title">
+                                        Location
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="_prtis_list_body">
+                        <ul class="deatil_features">
+                            <li>
+                                <strong>
+                                    @Model.Name
+                                </strong>Name
+                            </li>
+
+                            <li>
+                                <strong>
+                                    @Model.Email
+                                </strong>Email
+                            </li>
+
+                            <li>
+                                <strong>
+                                    @Model.Tell
+                                </strong>
+                                Phone
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="property-sidebar">
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.Spanish.ViewComponents.AgentProfile3ColByAgentId), new { Model.Id })
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @await Component.InvokeAsync(typeof(WebSite.Areas.Spanish.ViewComponents.RealEstateLatestList12ColByAgentId), new { Model.Id })
+            </div>
+        </div>
+    </div>
+</section>

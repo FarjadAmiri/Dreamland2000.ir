@@ -1,0 +1,118 @@
+﻿<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-static-top navbar-light navbar-brand-center">
+    <div class="navbar-wrapper">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item d-md-none mr-auto">
+                    <a class="nav-link menu-toggle" href="#">
+                        <i class="fa fa-ellipsis-v ft-menu font-large-1"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index" asp-area="Admin">
+                        <img class="brand-logo" alt="modern admin logo" src="/design/logo/Logo02-s.png" style="width: 100%">
+                    </a>
+                </li>
+                <li class="nav-item d-md-none">
+                    <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-container content">
+            <div class="collapse navbar-collapse" id="navbar-mobile">
+                <ul class="nav navbar-nav float-left">
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                            <span class="selected-language"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Logout" asp-area="User">
+                                <i class="fa fa-lock"></i>
+                                خروج
+                            </a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="">
+                                <i class="fa fa-envelope-o"></i>
+                                وب سایت
+                            </a>
+
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-notification nav-item">
+
+                    </li>
+                    <li class="dropdown dropdown-notification nav-item">
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-dark navbar-without-dd-arrow navbar-shadow" role="navigation" data-menu="menu-wrapper">
+    <div class="navbar-container main-menu-content" data-menu="menu-container">
+        <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+
+            <li class="dropdown nav-item" data-menu="dropdown">
+                <a class="dropdown-toggle nav-link" asp-controller="Home" asp-action="Index" data-toggle="dropdown">
+                    <i class="fa fa-television"></i>
+                    <span>
+                        پیشخوان کاربری
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <li class="dropdown">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="User" data-toggle="dropdown">
+                            پیشخوان کاربری
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="Admin" data-toggle="dropdown">
+                            پیشخوان مدیریت
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="" data-toggle="dropdown">
+                            بازگشت به سایت
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+
+            <li class="dropdown nav-item" data-menu="dropdown">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <i class="fa fa-television"></i>
+                    <span>
+                        حساب کاربری
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown">
+                        <a class="dropdown-item" asp-controller="ProfileUserArea" asp-action="ChangePassword" data-toggle="dropdown">
+                            تغییر کلمه عبور
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-item" asp-controller="Account" asp-action="Logout" data-toggle="dropdown">
+                            خروج از حساب کاربری
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
+        </ul>
+    </div>
+</div>

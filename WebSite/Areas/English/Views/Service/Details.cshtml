@@ -1,0 +1,168 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using WebSite.Core.Utility
+@model WebSite.DataLayer.Entities.Service.Service
+@{
+    ViewData["Title"] = Model!.Title;
+    ViewData["MetaDescription"] = Model.Title;
+    ViewData["MetaOgTitle"] = Model.Title;
+
+    ViewData["MetaOgDescription"] = Model.Summary!;
+    ViewData["MetaOgUrl"] = "https://dreamland2000.ir/service/" + Model.Id;
+
+    ViewData["MetaOgImage"] = "https://dreamland2000.ir/upload/service/thumb/" + Model.Photo;
+    ViewData["MetaOgImageUrl"] = "https://dreamland2000.ir/upload/service/thumb/" + Model.Photo;
+    ViewData["MetaOgImageAlt"] = Model.Title;
+    ViewData["MetaOgImageTitle"] = Model.Title;
+}
+
+<div class="page-title" style="background:#f4f4f4 url(/english/img/slider-2.jpg);" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+							
+                <div class="breadcrumbs-wrap position-relative z-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Our Services
+                        </li>
+                    </ol>
+                    <h2 class="breadcrumb-title">
+                        @Model.Title
+                    </h2>
+                </div>
+							
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="gray">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                <div class="article_detail_wrapss single_article_wrap format-standard">
+                    <div class="article_body_wrap">
+
+                        <div class="article_featured_image">
+                            <img class="img-fluid" src="/upload/service/@Model.Photo" alt="">
+                        </div>
+
+                        <div class="article_top_info">
+                            <ul class="article_middle_info">
+                                <li>
+
+                                    <a asp-controller="Service" asp-action="Index" asp-route-group="@Model.GroupRefId">
+                                        <span class="icons">
+                                            <i class="ti-user"></i>
+                                        </span>
+                                        Group:
+                                        @Model.Group?.Title
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Service" asp-action="Details" asp-route-id="@Model.Id">
+                                        <span class="icons">
+                                            <i class="ti-comment-alt"></i>
+                                        </span>
+                                        Review :
+                                        @Model.CommentList!.Count
+
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Service" asp-action="Details" asp-route-id="@Model.Id">
+                                        <span class="icons">
+                                            <i class="ti-eye"></i>
+                                        </span>
+                                        Visit :
+                                        @Model.Visit
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h2 class="post-title">
+                            @Model.Title
+                        </h2>
+                        <p>
+                            @Html.Raw(Model.Summary)
+                        </p>
+                    </div>
+                </div>
+
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.About9Col))
+
+                <div class="article_detail_wrapss single_article_wrap format-standard">
+
+                    <div class="comment-area">
+                        <div class="all-comments">
+                            <h3 class="comments-title">
+                                @Model.CommentList!.Count Review
+                            </h3>
+                            <div class="comment-list">
+                                <ul>
+                                    @foreach (var item in Model.CommentList)
+                                    {
+                                        <li class="article_comments_wrap">
+                                            <article>
+                                                <div class="article_comments_thumb">
+                                                    <img src="/design/user.jpg" alt="@item.Name">
+                                                </div>
+                                                <div class="comment-details">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-left-meta">
+                                                            <h4 class="author-name">
+                                                                @item.Name
+                                                                <span class="selected">
+                                                                    <i class="fas fa-bookmark"></i>
+                                                                </span>
+                                                            </h4>
+                                                            <div class="comment-date">
+                                                                @if (item.SendDate != null)
+                                                                {
+                                                                    @item.SendDate.Value.GregorianToPersian()
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p>
+                                                            @item.Comment
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.ServiceSendCommentForm), new { id = Model.Id })    
+
+                    </div>
+                    
+                    
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.ServiceGroupList3Col))
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.ServiceLatestList3Col))
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.ServiceTagList3ColByServiceId), new { id = Model.Id })
+
+            </div>
+
+        </div>
+    </div>
+
+</section>

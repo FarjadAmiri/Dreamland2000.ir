@@ -1,0 +1,230 @@
+﻿@using WebSite.Core.Utility
+@model WebSite.Core.ViewModel.User.UserListViewModel
+
+@{
+    ViewBag.Title = "لیست کاربران";
+    int i = 0;
+}
+
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            پیشخوان مدیر
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            صفحه نخست
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="UserAdminArea" asp-action="Index">
+                            مدیریت کاربران
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        لیست کاربران
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="html5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        لیست کاربران
+                    </h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <hr />
+                    <p>
+                        <a class="btn btn-success" asp-controller="UserAdminArea" asp-action="Create">
+                            ثبت کاربر جدید
+                        </a>
+                        
+                        <a class="btn btn-primary" asp-controller="UserAdminArea" asp-action="Search">
+                            جستجوی کاربر
+                        </a>
+
+                        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">
+                            بازگشت
+                        </a>
+                    </p>
+
+                    <partial name="_AlertPartial" />
+                </div>
+                <div class="collapse show">
+                    <div class="card-body">
+
+                        <div class="dataTables_wrapper container-fluid">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr role="row">
+                                    <th style="text-align: center">
+                                        ردیف
+                                    </th>
+
+                                    <th style="text-align: center">
+                                        تصویر
+                                    </th>
+
+                                    <th style="text-align: center">
+                                        کاربر
+                                    </th>
+
+                                    <th style="text-align: center">
+                                        عضویت
+                                    </th>
+
+                                    <th style="text-align: center">
+                                        وضعیت
+                                    </th>
+
+                                    <th style="text-align: center">
+                                        عملیات
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach (var item in Model.UserList)
+                                {
+                                    i++;
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1" style="text-align: center">
+                                            @i
+                                        </td>
+
+                                        <td class="sorting_1" style="text-align: center">
+                                            <a href="~/upload/user/@item.Photo" itemprop="contentUrl" target="_blank">
+                                                <img class="img-thumbnail img-fluid" src="~/upload/user/@item.Photo" style="width: 30px; height: 30px;">
+                                            </a>
+                                        </td>
+
+                                        <td style="text-align: center">
+                                            @item.FirstName @item.LastName
+                                            <br />
+                                            @item.Mobile
+                                        </td>
+
+                                        <td style="text-align: center">
+                                            عضویت : 
+                                            @if (item.RegisterDate != null)
+                                            {
+                                                @item.RegisterDate.Value.GregorianToPersian()
+                                            }
+                                        </td>
+
+                                        <td style="text-align: center">
+                                            @if (item.IsActive == true)
+                                            {
+                                                <span style="color: green">
+                                                    فعال
+                                                </span>
+                                            }
+                                            @if (item.IsActive == false)
+                                            {
+                                                <span style="color: red">
+                                                    غیر فعال
+                                                </span>
+                                            }
+                                            <span>
+                                                |
+                                            </span>
+
+                                            <a class="btn btn-success btn-sm" asp-controller="UserAdminArea" asp-action="ActiveUser" asp-route-id="@item.Id">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" asp-controller="UserAdminArea" asp-action="DeActiveUser" asp-route-id="@item.Id">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a asp-controller="UserAdminArea" asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm" title="پروفایل کاربر">
+                                                <i class="fa fa-search text-white"></i>
+                                            </a>
+
+                                                <a asp-controller="UserAdminArea" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm" title="بروزرسانی اطلاعات کاربر">
+                                                <i class="fa fa-edit text-white"></i>
+                                            </a>
+
+                                            <a asp-controller="UserAdminArea" asp-action="ResetPassword" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="ریست کلمه عبور">
+                                                <i class="fa fa-key text-white"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:center">
+                                <div class="dataTables_paginate " id="dataTables-example_paginate">
+                                    <ul class="pagination pagination-separate pagination-flat">
+                                       
+                                        @for (int j = 1; j <= Model.PageCount + 1; j++)
+                                        {
+                                            <li class="page-item @(j == Model.CurrentPage ? "active" : "")">
+                                                <a class="page-link" asp-controller="UserAdminArea" asp-action="Index" asp-route-page="@j">
+                                                    @j
+                                                </a>
+                                            </li>
+
+                                        }
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@foreach (var item in Model.UserList)
+{
+    string strLabel = "company-Label" + item.Id;
+    string strId = "company-delete-confirm-" + item.Id;
+
+    <div class="modal fade" id="@strId" tabindex="-1" role="dialog" aria-labelledby="@strLabel" aria-hidden="true" style="direction:rtl;text-align:right;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="@strLabel">
+                        هشدار
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    آیا از حذف کاربر انتخابی اطمینان دارید؟ (با حذف کاربر همه اطلاعات او حذف می گردد)
+                </div>
+                <div class="modal-footer">
+                    <form asp-controller="UserAdminArea" asp-action="DeleteUser" asp-route-id="@item.Id" method="get">
+                        <button type="submit" class="btn btn-danger" style="margin-left: 10px;">
+                            تایید
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            انصراف
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,205 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using WebSite.DataLayer.Entities.RealEstate
+@using WebSite.DataLayer.Entities.Service
+@{
+    var realEstateGroupList = ViewBag.RealEstateGroupList as IEnumerable<RealEstateGroup>;
+    var serviceGroupList = ViewBag.ServiceGroupList as IEnumerable<ServiceGroup>;
+}
+
+<div class="header header-light">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="#">
+                    <img src="/design/logo/Logo02-s.png" class="logo" alt="Dreamland 2000" />
+                </a>
+                <div class="nav-toggle"></div>
+               
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
+
+                    <li class="@(ViewBag.Navbar=="Home"?"active":"")">
+                        <a asp-controller="Home" asp-action="Index" title="Dreamland Consulting Group website home page">
+                            Home Page
+                        </a>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="RealEstate"?"active":"")">
+                        <a asp-controller="RealEstate" asp-action="Grid" title="Dreamland Properties Buy, sell and rent properties in Spain">
+                            Real estate
+                            <span class="submenu-indicator"></span>
+                        </a>
+                        <ul class="nav-dropdown nav-submenu">
+                            <li>
+                                <a asp-controller="RealEstate" asp-action="Grid">
+                                    Latest properties
+                                </a>
+                            </li>
+
+                          @*   <li>
+                                <a asp-controller="RealEstate" asp-action="AdvanceSearch">
+                                    Advanced search
+                                </a>
+                            </li> *@
+
+                            @foreach (var item in realEstateGroupList!)
+                            {
+                                <li>
+                                    <a asp-controller="RealEstate" asp-action="Grid" asp-route-group="@item.Id" title="@item.Title">
+                                        @item.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    
+                    <li class="@(ViewBag.Navbar=="Project"?"active":"")">
+                        <a asp-controller="RealEstateProject" asp-action="Grid" title="The latest pre-sale projects">
+                            Projects
+                        </a>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="Agent"?"active":"")">
+                        <a asp-controller="Agent" asp-action="Index" title="Familiarity with Dreamland agents">
+                            Our agent
+                        </a>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="Blog"?"active":"")">
+                        <a asp-controller="Blog" asp-action="Index" title="Dreamland Blog News and Articles">
+                            Blog
+                        </a>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="DreamLand"?"active":"")">
+                        <a asp-controller="About" asp-action="Index" title="Dreamland 2000 Real Estate Consultants Group">
+                            Dreamland
+                            <span class="submenu-indicator"></span>
+                        </a>
+                        <ul class="nav-dropdown nav-submenu">
+                            <li>
+                                <a asp-controller="About" asp-action="Index" title="About Dreamland 2000 Real Estate Consultants Group">
+                                    About us
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Service" asp-action="Index" title="Dreamland 2000 Real Estate Consultants Group">
+                                    Our services
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Contact" asp-action="Index" title="Cooperation with Dreamland Consulting Group">
+                                    Work with us
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Contact" asp-action="Index" title="Contact Dreamland support experts">
+                                    Contact us
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="Account"?"active":"")">
+                        <a asp-controller="Home" asp-action="Index" asp-are="UserEnglish" title="Dreamland User Account">
+                            Account
+                            <span class="submenu-indicator"></span>
+                        </a>
+                        <ul class="nav-dropdown nav-submenu">
+                            @if (User.Identity!.IsAuthenticated)
+                            {
+                                <li>
+                                    <a asp-controller="Home" asp-action="Index" asp-are="UserEnglish" title="Dreamland User Panel">
+                                        User Panel
+                                    </a>
+                                </li>
+                                @if (ViewBag.IsAdmin)
+                                {
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Index" asp-area="Admin" title="Dreamland Admin Panel">
+                                            Admin Panel
+                                        </a>
+                                    </li>
+                                }
+                                <li>
+                                    <a asp-controller="Account" asp-action="Logout" title="Sign out">
+                                        Sign out
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-controller="Account" asp-action="Login" title="Sign in">
+                                        Sign in
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Register" title="Sign up">
+                                        Sign up
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                    <li class="d-xl-none">
+                        <a asp-controller="Home" asp-action="Index" asp-area="" class="alio_green">
+                            <img src="/design/flags/Fa.png" style="width:30px;height:20px" />
+                            <span class="ml-1">
+                                Persian
+                            </span>
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green">
+                            <img src="/design/flags/En.png" style="width:30px;height:20px" />
+                            <span class="ml-1">
+                                English
+                            </span>
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green">
+                            <img src="/design/flags/Es.png" style="width:30px;height:20px" />
+                            <span class="ml-1">
+                                Spanish
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="nav-menu nav-menu-social align-to-right">
+
+                    <li style="padding-left:1px;padding-right:1px">
+                        <a asp-controller="Home" asp-action="Index" asp-area="" class="alio_green" style="padding-left:1px;padding-right:1px">
+                            <img src="/design/flags/Fa.png" style="width:30px;height:20px" />
+                        </a>
+                    </li>
+                    <li style="padding-left:1px;padding-right:1px">
+                        <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green" style="padding-left:1px;padding-right:1px">
+                            <img src="/design/flags/En.png" style="width:30px;height:20px" />
+                        </a>
+                    </li>
+                    <li style="padding-left:1px;padding-right:1px">
+                        <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green" style="padding-left:1px;padding-right:1px">
+                            <img src="/design/flags/Es.png" style="width:30px;height:20px" />
+                        </a>
+                    </li>
+
+
+                    <li class="add-listing">
+                        <a asp-controller="Contact" asp-action="Index" title="Consultation with Dreamland experts" class="theme-cl">
+                            <i class="fas fa-plus-circle ml-1"></i>
+                            Contact
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

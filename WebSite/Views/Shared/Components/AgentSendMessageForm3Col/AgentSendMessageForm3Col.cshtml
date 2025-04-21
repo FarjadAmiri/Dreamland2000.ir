@@ -1,0 +1,68 @@
+﻿@model WebSite.Core.ViewModel.Agent.AgentSendMessageViewModel
+<partial name="_AlertPartial" />
+
+<div class="modal fade" id="agent-message" tabindex="-1" role="dialog" aria-labelledby="authomessage" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+        <div class="modal-content" id="authomessage">
+            <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+            <div class="modal-body">
+                <h4 class="modal-header-title">
+                    ارسال پیام برای مشاور
+                </h4>
+                <div class="login-form">
+                    <form asp-controller="Agent" asp-action="SendMessage" method="post">
+
+                        <input type="hidden" asp-for="AgentRefId"/>
+
+                        <div class="form-group">
+                            <label>
+                                نام
+                            </label>
+                            <div class="input-with-icons">
+                                <input asp-for="Name" type="text" class="form-control" placeholder="نام">
+                                <span asp-validation-for="Name" class="alert-danger" style="color: red"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                تلفن
+                            </label>
+                            <div class="input-with-icons">
+                                <input asp-for="Tell" type="text" class="form-control" placeholder="تلفن">
+                                <span asp-validation-for="Tell" class="alert-danger" style="color: red"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                ایمیل
+                            </label>
+                            <div class="input-with-icons">
+                                <input asp-for="Email" type="email" class="form-control" placeholder="ایمیل">
+                                <span asp-validation-for="Email" class="alert-danger" style="color: red"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                پیام
+                            </label>
+                            <div class="input-with-icons">
+                                <textarea asp-for="Message" class="form-control ht-80"></textarea>
+                                <span asp-validation-for="Message" class="alert-danger" style="color: red"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-md full-width pop-login">
+                                ارسال پیام
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

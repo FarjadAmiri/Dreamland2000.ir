@@ -1,0 +1,226 @@
+﻿@using WebSite.Core.Utility
+@using WebSite.Core.Enum
+@model WebSite.Core.ViewModel.User.SearchUserViewModel
+@{
+    ViewData["Title"] = "جستجوی کاربر";
+    int i = 0;
+}
+
+
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            پیشخوان مدیر
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            خانه
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="UserAdminArea" asp-action="Index">
+                            کاربران
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        جستجوی کاربر
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="html5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        جستجوی کاربر
+                    </h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <hr />
+                    <partial name="_AlertPartial" />
+                </div>
+                <div class="collapse show">
+                    <div class="card-body">
+
+                        <form asp-action="Search" method="post">
+
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+
+                                    <div class="form-group row">
+                                        <label asp-for="UserSearchTypeId" class="col-md-4 label-control"></label>
+                                        <div class="col-md-8">
+                                            <select class="form-control border-primary" asp-for="UserSearchTypeId" asp-items="Html.GetEnumSelectList<EnumUserSearchType>()">
+                                                <option value="-1">--انتخاب پارامتر جستجو--</option>
+                                            </select>
+                                            <span asp-validation-for="UserSearchTypeId" class="alert-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label asp-for="SearchText" class="col-md-4 label-control"></label>
+                                        <div class="col-md-8">
+                                            <input type="text" asp-for="SearchText" class="form-control border-primary">
+                                            <span asp-validation-for="SearchText" class="alert-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="form-group row">
+                                    <label asp-for="Mobile" class="col-md-4 label-control"></label>
+                                    <div class="col-md-8">
+                                    <input type="text" asp-for="Mobile" class="form-control border-primary">
+                                    <span asp-validation-for="Mobile" class="alert-danger"></span>
+                                    </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <label asp-for="Email" class="col-md-4 label-control"></label>
+                                    <div class="col-md-8">
+                                    <input type="text" asp-for="Email" class="form-control border-primary">
+                                    <span asp-validation-for="Email" class="alert-danger"></span>
+                                    </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <label asp-for="Name" class="col-md-4 label-control"></label>
+                                    <div class="col-md-8">
+                                    <input type="text" asp-for="Name" class="form-control border-primary">
+                                    <span asp-validation-for="Name" class="alert-danger"></span>
+                                    </div>
+                                    </div>*@
+                                </div>
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-12">
+                                    <div class="form-group text-center">
+                                        <button type="submit" class="btn btn-warning">
+                                            جستجوی کاربر
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        @if (Model.UserList != null)
+                        {
+                            <div class="dataTables_wrapper container-fluid">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr role="row">
+                                            <th style="text-align: center">
+                                                ردیف
+                                            </th>
+
+                                            <th style="text-align: center">
+                                                کارت ملی
+                                            </th>
+
+                                            <th style="text-align: center">
+                                                کاربر
+                                            </th>
+
+                                            <th style="text-align: center">
+                                                موبایل
+                                            </th>
+
+                                            <th style="text-align: center">
+                                                تاریخ عضویت
+                                            </th>
+
+                                            <th style="text-align: center">
+                                                وضعیت
+                                            </th>
+
+                                            <th style="text-align: center">
+                                                عملیات
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model.UserList)
+                                        {
+                                            i++;
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1" style="text-align: center">
+                                                    @i
+                                                </td>
+                                                <td class="sorting_1" style="text-align: center">
+                                                    <a href="~/upload/user/@item.Photo" itemprop="contentUrl" target="_blank">
+                                                        <img class="img-thumbnail img-fluid" src="~/upload/user/@item.Photo" style="width: 70px; height: 40px;">
+                                                    </a>
+                                                </td>
+
+                                                <td style="text-align: center">
+                                                    @item.FirstName @item.LastName
+                                                    <br />
+                                                    @item.Email
+                                                </td>
+
+                                                <td style="text-align: center">
+                                                    @item.Mobile
+                                                    <br />
+
+                                                </td>
+
+                                                <td style="text-align: center">
+                                                    @if (item.RegisterDate != null)
+                                                    {
+                                                        @item.RegisterDate.Value.GregorianToPersian()
+                                                    }
+                                                </td>
+                                                <td style="text-align: center">
+                                                    @if (item.IsActive == true)
+                                                    {
+                                                        <span>
+                                                            فعال
+                                                        </span>
+                                                    }
+
+                                                    @if (item.IsActive == false)
+                                                    {
+                                                        <span>
+                                                            غیر فعال
+                                                        </span>
+                                                    }
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <a asp-controller="UserAdminArea" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm" title="مشاهده پروفایل کاربر">
+                                                        <i class="fa fa-search text-white"></i>
+                                                    </a>
+
+                                                    <a asp-controller="UserAdminArea" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm" title="بروزرسانی کاربر">
+                                                        <i class="fa fa-edit text-white"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+

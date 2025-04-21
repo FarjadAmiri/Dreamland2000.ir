@@ -1,0 +1,150 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<WebSite.Core.ViewModel.RealEstate.RemoveRealEstatePhotoListByAdmin>
+
+@{
+    ViewBag.Title = "Remove Selected Photo";
+    int i = 0;
+    int modelCount = Model.Count();
+
+}
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            Home Page
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="RealEstateAdminArea" asp-action="Index">
+                            Real estate
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        Remove Selected Photo
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="from-actions-top-bottom-center">
+                    Remove Selected Photo
+                </h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <hr />
+                <partial name="_AlertPartial" />
+            </div>
+            <div class="collpase show">
+                <div class="card-body">
+
+                    <form asp-action="RemoveSelectedPhoto" method="post">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="dataTables_wrapper container-fluid table-responsive">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Check
+                                                </th>
+
+                                                <th>
+                                                    #
+                                                </th>
+
+                                                <th>
+                                                    Photo
+                                                </th>
+
+                                                <th>
+                                                    Title
+                                                </th>
+
+                                                <th>
+                                                    Sort
+                                                </th>
+                                            </tr>
+
+                                        </thead>
+                                        @for (int j = 0; j < Model.Count(); j++)
+                                        {
+                                            i++;
+
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="selectedPhoto" value="@Model[j].PhotoRefId" id="@Model[j].PhotoRefId">
+                                                </td>
+
+                                                <td>
+                                                    @i
+                                                    <input type="hidden" asp-for="@Model[j].PhotoRefId">
+                                                    <input type="hidden" asp-for="@Model[j].Photo">
+                                                    <input type="hidden" asp-for="@Model[j].Title">
+                                                    <input type="hidden" asp-for="@Model[j].Sort">
+                                                </td>
+
+                                                <td>
+                                                    <img src="/upload/realestate/@Model[j].Photo" style="width:80px;height:60px" />
+                                                </td>
+
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" asp-for="@Model[j].Title" class="form-control" disabled="disabled">
+                                                            <span asp-validation-for="@Model[j].Title" class="alert-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <input type="number" asp-for="@Model[j].Sort" class="form-control" disabled="disabled">
+                                                            <span asp-validation-for="@Model[j].Sort" class="alert-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+
+                                            </tr>
+                                        }
+                                    </table>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <hr />
+                                <div class="form-group text-center">
+                                    <input type="submit" class="btn btn-danger" value="Remove Selected" />
+                                    <a asp-controller="RealEstateAdminArea" asp-action="Index" class="btn btn-dark">
+                                        Back
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

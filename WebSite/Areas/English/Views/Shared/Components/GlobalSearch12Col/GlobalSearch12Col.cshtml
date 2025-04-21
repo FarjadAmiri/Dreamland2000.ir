@@ -1,0 +1,61 @@
+﻿@model WebSite.Core.ViewModel.Global.GlobalSearchViewModel
+
+
+<section class="p-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-11 col-lg-12 col-md-12 col-12">
+
+                <div class="Goodup-search-shadow">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="placesseach" role="tabpanel" aria-labelledby="placesseach-tab">
+                            
+                            <form asp-controller="Home" asp-action="Search" method="post" class="main-search-wrap fl-wrap">
+                                <div class="main-search-item">
+                                    <span class="search-tag"><i class="lni lni-keyboard"></i></span>
+                                    <input asp-for="SearchText" type="text" class="form-control radius" placeholder="عبارت جستجو . . ." />
+                                </div>
+                                <div class="main-search-item">
+                                    <span class="search-tag"><i class="lni lni-briefcase"></i></span>
+                                    <select asp-for="SearchType" class="form-control">                                        
+                                        
+                                        <option value="1">
+                                            جستجوی مشاغل
+                                        </option>
+                                        
+                                        <option value="2">
+                                            جستجوی آگهی
+                                        </option>
+
+                                        <option value="3">
+                                            جستجوی اخبار
+                                        </option>
+
+                                        <option value="4">
+                                            جستجوی فروشگاه
+                                        </option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="main-search-button">
+                                    <button class="btn full-width theme-bg text-white" type="submit">
+                                        جستجو</button>
+                                </div>
+                            </form>
+                        </div>                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+

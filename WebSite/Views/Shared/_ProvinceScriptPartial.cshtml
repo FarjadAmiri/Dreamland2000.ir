@@ -1,0 +1,27 @@
+﻿<script>
+    $("#ProvinceRefId").change(
+        function () {           
+            $("#CityRefId").empty();
+            if ($("#ProvinceRefId :selected").val() !== "-1") {
+                $.getJSON("/getcitybyprovinceid/" + $("#ProvinceRefId :selected").val(),
+                    function (data) {
+                        $.each(data,
+                            function () {
+                                $("#CityRefId").append('<option value=' + this.value + '>' + this.text + '</option>');
+                            });
+                        $("#CityRefId").prop("disabled", false);
+                    });
+            }
+
+            else {
+                $("#CityRefId").append('<option value=-1>' + "--انتخاب شهر--" + '</option>');
+                $("#CityRefId").prop("disabled", true);
+            }
+        });
+
+    window.onload = function () {
+        if ($("#CityRefId :selected").val() !== "-1") {
+            $("#CityRefId").prop("disabled", false);
+        }
+    };
+</script>

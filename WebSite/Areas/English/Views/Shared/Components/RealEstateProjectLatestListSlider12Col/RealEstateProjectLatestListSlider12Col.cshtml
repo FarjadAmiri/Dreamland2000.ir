@@ -1,0 +1,141 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstateProject>
+
+@{
+    int pageCount = Model.ToList().Count / 4;
+}
+
+<section class="min light-bg">
+    <div class="container">
+
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-8">
+                <div class="sec-heading center">
+                    <h2>
+                        Latest projects
+                    </h2>
+                    <p>
+                        At Dreamland, we introduce you to the latest projects, investment opportunities, and pre-purchase properties.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="list_views">
+                    @for (int i = 1; i <= pageCount; i++)
+                    {
+                        int skip = (i - 1) * 4;
+                        int take = 4;
+
+                        <div class="single_items">
+                            <div class="row">
+
+                                @foreach (var item in Model.Skip(skip).Take(take))
+                                {
+                                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="property-listing list_view">
+
+                                            <div class="listing-img-wrapper">
+                                                <div class="list-img-slide">
+                                                    <div class="click">
+                                                        <div>
+                                                            <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                                <img src="/upload/realestate/thumb/@item.Photo" class="img-fluid mx-auto" alt="@item.Title" />
+                                                            </a>
+                                                        </div>
+                                                        @foreach (var p in item.PhotoList!)
+                                                        {
+                                                            <div>
+                                                                <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                                    <img src="/upload/realestate/thumb/@p.Photo" class="img-fluid mx-auto" alt="@p.Title" />
+                                                                </a>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="list_view_flex">
+
+                                                <div class="listing-detail-wrapper mt-1">
+                                                    <div class="listing-short-detail-wrap">
+                                                        <div class="_card_list_flex mb-2">
+                                                            <div class="_card_flex_01">
+                                                                <span class="_list_blickes _netork">
+                                                                    Project
+                                                                </span>
+                                                            </div>
+                                                            <div class="_card_flex_last">
+                                                                <h6 class="listing-card-info-price mb-0" style="font-size:14px">
+                                                                    @item.Price
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="_card_list_flex">
+                                                            <div class="_card_flex_01">
+                                                                <h4 class="listing-name verified">
+                                                                    <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-link-detail">
+                                                                        @item.Title
+                                                                    </a>
+                                                                </h4>
+                                                                <p>
+                                                                    @item.Area
+                                                                </p>
+                                                                <p>
+                                                                    @item.Room
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                             
+
+                                                <div class="listing-detail-footer">
+                                                    <div class="footer-first">
+                                                        <div class="foot-rates">
+                                                            <span class="elio_rate perfect">4.7</span>
+                                                            <div class="_rate_stio">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="footer-flex">
+                                                        <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-view">
+                                                            View details
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row mt-5">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                <a asp-controller="RealEstateProject" asp-action="Grid" title="Explore More Projects" class="btn btn-light-danger">
+                    More Project
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</section>

@@ -1,0 +1,73 @@
+﻿@model WebSite.Core.ViewModel.Account.LoginBySmsViewModel
+@{
+    ViewData["Title"] = "ورود با  رمز یکبار مصرف";
+    ViewData["MetaDescription"]="ورود به حساب کاربری با رمز یکبار مصرف در نیرو بیت اولین پرتال و مجله تخصصی حوزه برق الکترونیک و انرژی";
+
+    ViewData["Robots"] = "nofollow";
+}
+
+<section class="gray">
+    <div class="container">
+        <div class="row align-items-start justify-content-center">
+            <div class="col-xl-5 col-lg-8 col-md-12">
+
+                <div class="signup-screen-wrap">
+                    <div class="signup-screen-single">
+                        <div class="text-center mb-4">
+                            <h4 class="m-0 ft-medium">
+                                ورود با رمز یکبار مصرف
+                            </h4>
+                        </div>
+
+                        <partial name="_AlertPartial" />
+
+                        <form asp-action="LoginBySmsStep2" method="post" class="submit-form">
+                            <input type="hidden" asp-for="Mobile"/>
+                            <input type="hidden" asp-for="UserRefId"/>
+
+                            <div class="form-group">
+                                <label class="mb-1">
+                                    شماره موبایل
+                                </label>
+                                <input asp-for="Mobile" type="text" class="form-control rounded" placeholder="شماره موبایل*" disabled="disabled">
+                                <span asp-validation-for="Mobile" class="alert-danger" style="color: red"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mb-1">
+                                    رمز یکبار مصرف
+                                </label>
+                                <input asp-for="Code" type="text" class="form-control rounded" placeholder="رمز یکبار مصرف پیامک شده*">
+                                <span asp-validation-for="Code" class="alert-danger" style="color: red"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-md full-width theme-bg text-light rounded ft-medium">
+                                    ورود به حساب کاربری
+                                </button>
+                            </div>
+
+                            <div class="form-group text-center mt-4 mb-0">
+                                <p class="mb-0">
+                                    <a asp-controller="Account" asp-action="Forgot" title="فراموشی کلمه عبور" class="ft-medium text-info">
+                                        فراموشی کلمه عبور
+                                    </a>
+                                    <span> | </span>
+                                    <a asp-controller="Account" asp-action="Login" title="ورود به حساب کاربری" class="ft-medium text-info">
+                                        ورود به حساب کاربری
+                                    </a>
+                                    <span> | </span>
+                                    <a asp-controller="Account" asp-action="Register" title="ثبت نام در سایت" class="ft-medium text-info">
+                                        ثبت نام در سایت
+                                    </a>
+                                </p>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,397 @@
+﻿@using WebSite.Core.Utility
+@using ZXing.QrCode.Internal
+@model WebSite.DataLayer.Entities.RealEstate.RealEstateProject
+@{
+    ViewData["Title"] = Model!.Title;
+    ViewData["MetaDescription"] = Model.Title;
+    ViewData["MetaOgTitle"] = Model.Title;
+
+    ViewData["MetaOgDescription"] = Model.Summary!;
+    ViewData["MetaOgUrl"] = "https://dreamland2000.ir/realestate/" + Model.Id;
+
+    ViewData["MetaOgImage"] = "https://dreamland2000.ir/upload/realestate/thumb/" + Model.Photo;
+    ViewData["MetaOgImageUrl"] = "https://dreamland2000.ir/upload/realestate/thumb/" + Model.Photo;
+    ViewData["MetaOgImageAlt"] = Model.Title;
+    ViewData["MetaOgImageTitle"] = Model.Title;
+}
+<section class="gray">
+	<div class="container">
+		<div class="row">
+
+			
+			<div class="col-lg-8 col-md-12 col-sm-12">
+				
+                
+				<div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            نظرات
+                            @Model.CommentList!.Count
+                        </h4>
+                    </div>
+                    
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">ارسال نظرات</h4>
+                        </div>
+
+                        <div class="block-body">
+                            <div class="row">
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>نام</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>ایمیل</label>
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label>پیام</label>
+                                        <textarea class="form-control ht-80"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <button class="btn theme-bg rounded" type="submit">ارسال نظر</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="block-body">
+						<div class="author-review">
+							<div class="comment-list">
+								<ul>
+									@foreach (var item in Model.CommentList.Take(5))
+                                    {
+                                        <li class="article_comments_wrap">
+                                            <article>
+                                                <div class="article_comments_thumb">
+                                                    <img src="design/user.jpg/team-4.jpg" alt="@item.Name">
+                                                </div>
+                                                <div class="comment-details">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-left-meta">
+                                                            <h4 class="author-name">
+                                                                @item.Name
+                                                            </h4>
+                                                            <div class="comment-date">
+                                                                @if (item.SendDate != null)
+                                                                {
+																	@item.SendDate.Value.GregorianToPersian()
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p style="text-align:justify">
+                                                            @item.Comment	
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    }
+									
+								</ul>
+							</div>
+						</div>
+                        <a asp-controller="RealEstate" asp-action="CommentList" asp-route-id="@Model.Id" class="reviews-checked">
+                            نظرات بیشتر
+                        </a>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- property Sidebar -->
+			<div class="col-lg-4 col-md-12 col-sm-12">
+
+				<div class="property-sidebar">
+
+					<div class="sider_blocks_wrap">
+						<div class="side-booking-header">
+							<ul class="nav nav-pills sider_tab" id="pillss-tab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="pills-book-tab" data-toggle="pill" href="#pills-book" role="tab" aria-controls="pills-book" aria-selected="true">ثبت ملک</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-appointment-tab" data-toggle="pill" href="#pills-appointment" role="tab" aria-controls="pills-appointment" aria-selected="false">رزرو نوبت</a>
+								</li>
+							</ul>
+						</div>
+						<div class="sidetab-content">
+							<div class="tab-content" id="pillss-tabContent">
+								<!-- Book Now Tab -->
+								<div class="tab-pane fade show active" id="pills-book" role="tabpanel" aria-labelledby="pills-book-tab">
+									<div class="side-booking-body">
+										<div class="row">
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+												<div class="form-group">
+													<label>از تاریخ</label>
+													<div class="cld-box">
+														<i class="ti-calendar"></i>
+														<input type="date1" class="form-control" id="date1" placeholder="از تاریخ">
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+												<div class="form-group">
+													<label>تا تاریخ</label>
+													<div class="cld-box">
+														<i class="ti-calendar"></i>
+														<input type="date2" class="form-control" id="date2" placeholder="از تاریخ">
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+												<div class="form-group">
+													<div class="guests">
+														<label>تعداد</label>
+														<div class="guests-box">
+															<button class="counter-btn" type="button" id="cnt-down"><i class="ti-minus"></i></button>
+															<input type="text" id="guestNo" name="guests" value="2" />
+															<button class="counter-btn" type="button" id="cnt-up"><i class="ti-plus"></i></button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+												<div class="form-group">
+													<div class="guests">
+														<label>بچه ها</label>
+														<div class="guests-box">
+															<button class="counter-btn" type="button" id="kcnt-down"><i class="ti-minus"></i></button>
+															<input type="text" id="kidsNo" name="kids" value="0" />
+															<button class="counter-btn" type="button" id="kcnt-up"><i class="ti-plus"></i></button>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg12 col-md-12 col-sm-12 mt-3">
+												<label for="guests">ویژگی های پیشرفته</label>
+												<div class="_adv_features_list">
+													<ul class="no-ul-list">
+														<li>
+															<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
+															<label for="a-1" class="checkbox-custom-label">تهویه کننده هوا<i>10 تومان</i></label>
+														</li>
+														<li>
+															<input id="a-2" class="checkbox-custom" name="a-2" type="checkbox" checked>
+															<label for="a-2" class="checkbox-custom-label">تختواب<i>17 تومان</i></label>
+														</li>
+														<li>
+															<input id="a-3" class="checkbox-custom" name="a-3" type="checkbox" checked>
+															<label for="a-3" class="checkbox-custom-label">گرمایش<i>20 تومان</i></label>
+														</li>
+														<li>
+															<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox">
+															<label for="a-4" class="checkbox-custom-label">اینترنت<i>10 تومان</i></label>
+														</li>
+														<li>
+															<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox">
+															<label for="a-5" class="checkbox-custom-label">مایکروویو<i>15 تومان</i></label>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="col-lg12 col-md-12 col-sm-12 mt-3">
+												<label for="guests">قیمت و مالیات</label>
+												<div class="_adv_features">
+													<ul>
+														<li>روزانه<span>310 تومان</span></li>
+														<li>تخفیف 25 تومان<span>250 تومان</span></li>
+														<li>هزینه خدمات<span>17 تومان</span></li>
+														<li>صبحانه<span>35 تومان</span></li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="side-booking-foot">
+												<span class="sb-header-left">مبلغ کل قابل پرداخت</span>
+												<h3 class="price theme-cl">170 تومان</h3>
+											</div>
+
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="stbooking-footer mt-1">
+													<div class="form-group mb-0 pb-0">
+														<a href="#" class="btn book_btn theme-bg">جستجو ملک</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Appointment Now Tab -->
+								<div class="tab-pane fade" id="pills-appointment" role="tabpanel" aria-labelledby="pills-appointment-tab">
+									<div class="sider-block-body p-3">
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<label>نام و نام خانوادگی</label>
+													<input type="text" class="form-control light" placeholder="نام را وارد کنید">
+												</div>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<label>ایمیل</label>
+													<input type="text" class="form-control light" placeholder="ایمیل را وارد کنید">
+												</div>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<label>شماره تماس</label>
+													<input type="text" class="form-control light" placeholder="شماره تماس">
+												</div>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<label>پیام</label>
+													<textarea class="form-control light" placeholder="پیام"></textarea>
+												</div>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<button class="btn book_btn theme-bg">رزرو نوبت</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Agent Detail -->
+					<div class="sider_blocks_wrap">
+						<div class="side-booking-body">
+							<div class="agent-_blocks_title">
+
+								<div class="agent-_blocks_thumb"><img src="assets/img/user-6.jpg" alt=""></div>
+								<div class="agent-_blocks_caption">
+									<h4><a href="#">مریم معصومی</a></h4>
+									<span class="approved-agent"><i class="ti-check"></i>تایید شده</span>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+
+							<a href="#" class="agent-btn-contact" data-toggle="modal" data-target="#autho-message"><i class="ti-comment-alt"></i>پیام</a>
+
+							<span id="number" data-last="0217654321">
+								<span><i class="ti-headphone-alt"></i><a class="see">نمایش 0217654...</a></span>
+							</span>
+						</div>
+					</div>
+
+					<!-- Featured Property -->
+					<div class="sidebar-widgets">
+
+						<h4>املاک مشابه</h4>
+
+						<div class="sidebar_featured_property">
+
+							<!-- List Sibar Property -->
+							<div class="sides_list_property">
+								<div class="sides_list_property_thumb">
+									<img src="assets/img/p-1.png" class="img-fluid" alt="" />
+								</div>
+								<div class="sides_list_property_detail">
+									<h4><a href="single-property-1.html">آپارتمان در مرکز شهر</a></h4>
+									<span><i class="ti-location-pin"></i>تهران</span>
+									<div class="lists_property_price">
+										<div class="lists_property_types">
+											<div class="property_types_vlix sale">برای فروش</div>
+										</div>
+										<div class="lists_property_price_value">
+											<h4>4,240 تومان</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- List Sibar Property -->
+							<div class="sides_list_property">
+								<div class="sides_list_property_thumb">
+									<img src="assets/img/p-4.png" class="img-fluid" alt="" />
+								</div>
+								<div class="sides_list_property_detail">
+									<h4><a href="single-property-1.html">آپارتمان در مرکز شهر</a></h4>
+									<span><i class="ti-location-pin"></i>تهران</span>
+									<div class="lists_property_price">
+										<div class="lists_property_types">
+											<div class="property_types_vlix">برای اجاره</div>
+										</div>
+										<div class="lists_property_price_value">
+											<h4>7,380 تومان</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- List Sibar Property -->
+							<div class="sides_list_property">
+								<div class="sides_list_property_thumb">
+									<img src="assets/img/p-7.png" class="img-fluid" alt="" />
+								</div>
+								<div class="sides_list_property_detail">
+									<h4><a href="single-property-1.html">آپارتمان در مرکز شهر</a></h4>
+									<span><i class="ti-location-pin"></i>تهران</span>
+									<div class="lists_property_price">
+										<div class="lists_property_types">
+											<div class="property_types_vlix buy">برای فروش</div>
+										</div>
+										<div class="lists_property_price_value">
+											<h4>8,730 تومان</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- List Sibar Property -->
+							<div class="sides_list_property">
+								<div class="sides_list_property_thumb">
+									<img src="assets/img/p-5.png" class="img-fluid" alt="" />
+								</div>
+								<div class="sides_list_property_detail">
+									<h4><a href="single-property-1.html">آپارتمان در مرکز شهر</a></h4>
+									<span><i class="ti-location-pin"></i>تهران</span>
+									<div class="lists_property_price">
+										<div class="lists_property_types">
+											<div class="property_types_vlix">برای اجاره</div>
+										</div>
+										<div class="lists_property_price_value">
+											<h4>6,240 تومان</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

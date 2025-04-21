@@ -1,0 +1,205 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using WebSite.DataLayer.Entities.RealEstate
+@using WebSite.DataLayer.Entities.Service
+@{
+    var realEstateGroupList = ViewBag.RealEstateGroupList as IEnumerable<RealEstateGroup>;
+    var serviceGroupList = ViewBag.ServiceGroupList as IEnumerable<ServiceGroup>;
+}
+<div class="header header-light">
+    <div class="container">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" asp-controller="Home" asp-action="Index" title="مشاوران املاک دریملند">
+                    <img src="/design/logo/logo02-s.png" class="logo" alt="گروه مشاوران املاک دریملند" />
+                </a>
+                <div class="nav-toggle"></div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+                <ul class="nav-menu">
+
+                    <li class="@(ViewBag.Navbar=="Home"?"active":"")">
+                        <a asp-controller="Home" asp-action="Index" title="صفحه نخست سایت گروه مشاوران دریملند">
+                            صفحه نخست
+                        </a>
+                    </li>
+                 
+                    <li class="@(ViewBag.Navbar=="RealEstate"?"active":"")">
+                        <a asp-controller="RealEstate" asp-action="Grid" title="املاک دریملند خرید ، فروش و اجاره املاک در اسپانیا">
+                            املاک دریملند
+                            <span class="submenu-indicator"></span>
+                        </a>
+                        <ul class="nav-dropdown nav-submenu">
+                            <li>
+                                <a asp-controller="RealEstate" asp-action="Grid">
+                                    جدیدترین املاک
+                                </a>
+                            </li> 
+                            
+                           @*  <li>
+                                <a asp-controller="RealEstate" asp-action="AdvanceSearch">
+                                    جستجوی پیشرفته
+                                </a>
+                            </li> *@
+
+                            @foreach (var item in realEstateGroupList!)
+                            {
+                                <li>
+                                    <a asp-controller="RealEstate" asp-action="Grid" asp-route-group="@item.Id" title="@item.Title">
+                                        @item.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                  
+                    <li class="@(ViewBag.Navbar=="Project"?"active":"")">
+                        <a asp-controller="RealEstateProject" asp-action="Grid" title="معرفی پروژه های پیش فروش دریملند">
+                            پروژه ها
+                        </a>
+                    </li>
+                    
+
+                    <li class="@(ViewBag.Navbar=="Agent"?"active":"")">
+                        <a asp-controller="Agent" asp-action="Index" title="آشنای با مشاوران دریملند">
+                            مشاوران
+                        </a>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="Blog"?"active":"")">
+                        <a asp-controller="Blog" asp-action="Index" title="آشنایی با گروه مشاوران دریملند">
+                            وبلاگ
+                        </a>
+                    </li>
+
+                    <li class="@(ViewBag.Navbar=="DreamLand"?"active":"")">
+                        <a asp-controller="About" asp-action="Index" title="آشنایی با گروه مشاوران دریملند">
+                            دریملند
+                            <span class="submenu-indicator"></span>
+                        </a>
+                        <ul class="nav-dropdown nav-submenu">
+                            <li>
+                                <a asp-controller="About" asp-action="Index" title="درباره گروه مشاوران دریملند">
+                                    درباره ما
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Service" asp-action="Index" title="2000 گروه مشاوران دریملند">
+                                    خدمات ما
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Contact" asp-action="Index" title="همکاری با گروه مشاوران دریملند">
+                                    همکاری با ما
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Contact" asp-action="Index" title="تماس با کارشناسان دریملند">
+                                    تماس با ما
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    
+                    <li class="@(ViewBag.Navbar=="Account"?"active":"")">
+                        <a asp-controller="About" asp-action="Index" title="حساب کاربری کاربران سایت">
+                            حساب کاربری
+                            <span class="submenu-indicator"></span>
+                        </a>
+                        <ul class="nav-dropdown nav-submenu">
+                            @if (User.Identity!.IsAuthenticated)
+                            {
+                                <li>
+                                    <a asp-controller="About" asp-action="Index" title="درباره گروه مشاوران دریملند">
+                                        پیشخوان کاربری
+                                    </a>
+                                </li>
+                                @if (ViewBag.IsAdmin)
+                                {
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Index" asp-area="Admin" title="پیشخوان مدیریت سایت دریملند">
+                                            پیشخوان مدیریت
+                                        </a>
+                                    </li>
+                                }
+                                <li>
+                                    <a asp-controller="Account" asp-action="Logout" title="خروج از حساب کاربری">
+                                        خروج از حساب کاربری
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-controller="Account" asp-action="Login" title="ورود به حساب کاربری">
+                                        ورود به حساب کاربری
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Register" title="ثبت نام در سایت دریملند">
+                                        ثبت نام
+                                    </a>
+                                </li>
+                            }
+                            
+
+                        </ul>
+                    </li>
+                    
+                    <li class="d-xl-none">
+                        <a asp-controller="Home" asp-action="Index" asp-area="" class="alio_green">
+                            <img src="/design/flags/Fa.png" style="width:30px;height:20px" />
+                            <span class="mr-1">
+                                فارسی
+                            </span>
+                        </a>
+                        
+                        <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green">
+                            <img src="/design/flags/En.png" style="width:30px;height:20px" />
+                            <span class="mr-1">
+                                انگلیسی
+                            </span>
+                        </a>
+                        
+                        <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green">
+                            <img src="/design/flags/Es.png" style="width:30px;height:20px" />
+                            <span class="mr-1">
+                                اسپانیایی
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="nav-menu nav-menu-social align-to-right">
+                    <li style="padding-left:1px;padding-right:1px">
+                        <a asp-controller="Home" asp-action="Index" asp-area="" class="alio_green" style="padding-left:1px;padding-right:1px">
+                            <img src="/design/flags/Fa.png" style="width:30px;height:20px" />
+                        </a>
+                    </li>
+                    <li style="padding-left:1px;padding-right:1px">
+                        <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green" style="padding-left:1px;padding-right:1px">
+                            <img src="/design/flags/En.png" style="width:30px;height:20px" />
+                        </a>
+                    </li>
+                    <li style="padding-left:1px;padding-right:1px">
+                        <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green" style="padding-left:1px;padding-right:1px">
+                            <img src="/design/flags/Es.png" style="width:30px;height:20px" />
+                        </a>
+                    </li>
+
+                    <li class="add-listing">
+                        
+                        <a asp-controller="Contact" asp-action="Index" title="مشاوره با کارشناسان دریملند" class="theme-cl">
+                            <i class="fas fa-plus-circle ml-1"></i>
+                            تماس با ما
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

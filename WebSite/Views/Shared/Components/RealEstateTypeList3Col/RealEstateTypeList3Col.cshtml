@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstateType>
+
+
+<div class="single_widgets widget_category">
+    <h4 class="title">
+         کاربری
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a asp-controller="RealEstate" asp-action="Grid" asp-route-type="@item.Id" title="@item.Title">
+                    @item.Title
+                </a>
+            </li>          
+        }
+        <li>
+            <a asp-controller="RealEstate" asp-action="Grid" title="همه آگهی های املاک">
+                همه املاک. . .
+            </a>
+        </li>
+        
+    </ul>
+</div>

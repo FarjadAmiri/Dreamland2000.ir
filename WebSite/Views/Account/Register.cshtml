@@ -1,0 +1,122 @@
+﻿@model WebSite.Core.ViewModel.Account.RegisterViewModel
+@{
+    ViewData["Title"] = "ثبت نام";
+    ViewData["MetaDescription"] = "ثبت نام در سایت گروه مشاوران دریملند";
+
+    ViewData["Robots"] = "nofollow";
+}
+
+
+<div class="page-title" style="background:#f4f4f4 url(/design/banner/header01.jpg);" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            حساب کاربری
+                        </li>
+                    </ol>
+                    <h2 class="breadcrumb-title">
+                        فرم ثبت نام در سایت
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-2">
+    <div class="container">
+        <!-- row Start -->
+        <div class="row">
+            <div class="col-lg-8 col-md-7">
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            فرم ثبت نام در سایت
+                        </h4>
+                        <partial name="_AlertPartial"/>
+                    </div>
+                    <form method="post" asp-action="Register">
+                        <input type="hidden" asp-for="Captcha" />
+                        <div class="block-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            موبایل
+                                        </label>
+                                        <input asp-for="Mobile" type="text" class="form-control simple">
+                                        <span asp-validation-for="Mobile" class="alert-danger" style="color: red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            نام
+                                        </label>
+                                        <input asp-for="FirstName" type="text" class="form-control simple">
+                                        <span asp-validation-for="FirstName" class="alert-danger" style="color: red"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            نام خانوادگی
+                                        </label>
+                                        <input asp-for="LastName" type="text" class="form-control simple">
+                                        <span asp-validation-for="LastName" class="alert-danger" style="color: red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            کلمه عبور
+                                        </label>
+                                        <input asp-for="Password" type="password" class="form-control simple">
+                                        <span asp-validation-for="Password" class="alert-danger" style="color: red"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>
+                                            تکرار کلمه عبور
+                                        </label>
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control simple">
+                                        <span asp-validation-for="ConfirmPassword" class="alert-danger" style="color: red"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-theme" type="submit">
+                                    ثبت نام در سایت
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-5">
+                <img src="/design/banner/Banner01-400px400px.jpg"/>
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+</section>
+
+
+
+
+

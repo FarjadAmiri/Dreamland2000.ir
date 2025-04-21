@@ -1,0 +1,207 @@
+﻿
+@model WebSite.Core.ViewModel.RealEstate.RealEstateProjectListViewModel
+@{
+    ViewData["Title"] = "Proyecto y preventa";
+    ViewData["MetaDescription"] = "Presentación de proyectos y preventas";
+}
+
+<section class="gray pt-4">
+
+    <div class="container">
+
+        <div class="row m-0">
+            <div class="short_wraping">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-3 col-md-6 col-sm-12  col-sm-6">
+                        <ul class="shorting_grid">
+                            <li class="list-inline-item">
+                                <a asp-controller="RealEstateProject" asp-action="Grid" title="Dreamland Property">
+                                    <span class="ti-layout-grid2"></span>
+                                    Red
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a asp-controller="RealEstateProject" asp-action="List" title="Dreamland Property" class="active">
+                                    <span class="ti-view-list"></span>
+                                    Lista
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 order-lg-2 order-md-3 elco_bor col-sm-12">
+                        <div class="shorting_pagination">
+                            <div class="shorting_pagination_laft">
+                                <h5>
+                                    Mostrando 1-24 de @Model.TotalCount resultados
+                                </h5>
+                            </div>
+                            <div class="shorting_pagination_right">
+                                <ul>
+                                    @for (int j = 1; j <= Model.PageCount + 1; j++)
+                                    {
+                                        <li class="@(j == Model.CurrentPage ? "active" : "")">
+                                            <a asp-controller="RealEstateProject" asp-action="List" asp-route-page="@j" asp-route-group="@ViewBag.GroupId" asp-route-city="@ViewBag.CityId" asp-route-type="@ViewBag.TypeId" asp-route-sort="@ViewBag.SortId" asp-route-search="@ViewBag.Search">
+                                                @j
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-12 order-lg-3 order-md-2 col-sm-6">
+                        <div class="shorting-right">
+                            <label>
+                                Corto por:
+                            </label>
+                            <div class="dropdown show">
+                                <a class="btn btn-filter dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="selection">
+                                        Más valorada
+                                    </span>
+                                </a>
+                                <div class="drp-select dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
+                                        Más valorada
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
+                                        Lo más visto
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
+                                        Listados de noticias
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
+                                        Puntuación más alta
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="row justify-content-center g-4">
+
+
+                    @foreach (var item in Model.ProjectList!)
+                    {
+                        var strPrice = "0";
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="property-listing list_view">
+
+                                <div class="listing-img-wrapper">
+                                    <div class="_exlio_125">
+                                        Proyecto
+                                    </div>
+                                    <div class="list-img-slide">
+                                        <div class="click">
+                                            <div>
+                                                <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                    <img src="/upload/realestate/@item.Photo" class="img-fluid mx-auto" alt="" />
+                                                </a>
+                                            </div>
+                                            @foreach (var p in item.PhotoList!)
+                                            {
+                                                <div>
+                                                    <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                        <img src="/upload/realestate/@p.Photo" class="img-fluid mx-auto" alt="@p.Title" />
+                                                    </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="list_view_flex">
+
+                                    <div class="listing-detail-wrapper mt-1">
+                                        <div class="listing-short-detail-wrap">
+                                            <div class="_card_list_flex mb-2">
+                                                <div class="_card_flex_01">
+                                                    <span class="_list_blickes _netork">
+                                                        Proyecto
+                                                    </span>
+                                                    <span class="_list_blickes types">
+                                                        @item.City?.Title
+                                                    </span>
+                                                </div>
+                                                <div class="_card_flex_last">
+                                                    <h6 class="listing-card-info-price text-seegreen mb-0" style="font-size:14px">
+                                                        @strPrice
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="_card_list_flex">
+                                                <div class="_card_flex_01">
+                                                    <h4 class="listing-name verified">
+                                                        <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-link-detail">
+                                                            @item.Title
+                                                        </a>
+                                                    </h4>
+                                                    <p>
+                                                        @item.Area
+                                                    </p>
+                                                    <p>
+                                                        @item.Room
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+
+                                    <div class="listing-detail-footer">
+                                        <div class="footer-first">
+                                            <div class="foot-rates">
+                                                <span class="elio_rate good">
+                                                    4.2
+                                                </span>
+                                                <div class="_rate_stio">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="footer-flex">
+                                            <a asp-controller="RealEstateProject" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-view bg-danger">
+                                                Ver detalles
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12">
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.Spanish.ViewComponents.RealEstateProjectSearch3Col))
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.Spanish.ViewComponents.RealEstateProjectCityList3Col))
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.Spanish.ViewComponents.RealEstateProjectLatestList3Col))
+
+            </div>
+
+        </div>
+    </div>
+</section>
+

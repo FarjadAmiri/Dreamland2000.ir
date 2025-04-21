@@ -1,0 +1,168 @@
+﻿@model WebSite.Core.ViewModel.Blog.BlogListViewModel
+
+@{
+    ViewData["Title"] = "Blog";
+}
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            Home Page
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="BlogAdminArea" asp-action="Index">
+                            Blog
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        List of articles
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="html5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        List of articles
+                    </h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <hr />
+                    <partial name="_AlertPartial" />
+                    <p>
+                        <a class="btn btn-success" asp-controller="BlogAdminArea" asp-action="Create" asp-route-language="1">
+                            Persian Article
+                        </a>
+                        
+                        <a class="btn btn-success" asp-controller="BlogAdminArea" asp-action="Create" asp-route-language="2">
+                            English Article
+                        </a>
+                        
+                        <a class="btn btn-success" asp-controller="BlogAdminArea" asp-action="Create" asp-route-language="3">
+                            Spanish Article
+                        </a>
+
+                        <a class="btn btn-warning" asp-controller="BlogCommentAdminArea" asp-action="Index">
+                            User Comments
+                        </a>
+
+                        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">
+                            Back
+                        </a>
+                    </p>
+                </div>
+                <div class="collapse show">
+                    <div class="card-body">
+
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.Admin.ViewComponents.TableBlogList), new { list = Model.BlogList })
+
+                        <div class="row">
+                            <div class="col-md-8" style="text-align:center">
+                                <div class="dataTables_paginate " id="dataTables-example_paginate">
+                                    <ul class="pagination pagination-separate pagination-flat">
+
+                                        <li>
+                                            <a class="page page-link" asp-controller="BlogAdminArea" asp-action="Index" asp-route-page="1" asp-route-group="@ViewBag.GroupId">
+                                                First
+                                            </a>
+                                        </li>
+
+                                        @if (Model.PageCount <= 5)
+                                        {
+                                            @for (int j = 1; j <= Model.PageCount; j++)
+                                            {
+                                                <li class="page-item @(j == Model.CurrentPage ? "active" : "")">
+                                                    <a class="page page-link" asp-controller="BlogAdminArea" asp-action="Index" asp-route-page="@j" asp-route-group="@ViewBag.GroupId">
+                                                        @j
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                        @if (Model.PageCount > 5)
+                                        {
+                                            @if (Model.CurrentPage >= 3)
+                                            {
+                                                <li>
+                                                    <sapn> . . .</sapn>
+                                                </li>
+
+                                                int distance = Model.CurrentPage + 2;
+                                                if (Model.CurrentPage >= Model.PageCount - 2)
+                                                {
+                                                    distance = Model.PageCount;
+                                                }
+
+                                                for (int j = Model.CurrentPage - 2; j <= distance; j++)
+                                                {
+                                                    <li class="page-item @(j == Model.CurrentPage ? "active" : "")">
+                                                        <a class="page page-link" asp-controller="BlogAdminArea" asp-action="Index" asp-route-page="@j" asp-route-group="@ViewBag.GroupId">
+                                                            @j
+                                                        </a>
+                                                    </li>
+                                                }
+
+                                                if (distance != Model.PageCount)
+                                                {
+                                                    <li>
+                                                        <span> . . .</span>
+                                                    </li>
+                                                }
+
+                                            }
+                                            else
+                                            {
+
+                                                @for (int j = 1; j <= 5; j++)
+                                                {
+                                                    <li class="page-item @(j == Model.CurrentPage ? "active" : "")">
+                                                        <a class="page page-link" asp-controller="BlogAdminArea" asp-action="Index" asp-route-page="@j" asp-route-group="@ViewBag.GroupId">
+                                                            @j
+                                                        </a>
+                                                    </li>
+                                                }
+
+                                                <li>
+                                                    <span> . . .</span>
+                                                </li>
+                                            }
+
+                                        }
+
+                                        <li>
+                                            <a class="page page-link" asp-controller="BlogAdminArea" asp-action="Index" asp-route-page="@Model.PageCount" asp-route-group="@ViewBag.GroupId">
+                                                Last
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 pull-left" style="text-align:center">
+                                <div class="dataTables_paginate ">
+                                    <p>
+                                        Page
+                                        @Model.CurrentPage
+                                        of
+                                        @Model.PageCount
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

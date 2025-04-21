@@ -1,0 +1,90 @@
+﻿@model WebSite.Core.ViewModel.RealEstate.RealEstateAdvanceSearchViewModelEnglish
+
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-12">
+        <div class="full_search_box nexio_search lightanic_search hero_search-radius modern my-ltr my-right">
+            <div class="search_hero_wrapping">
+                <form asp-controller="RealEstate" asp-action="AdvanceSearch" method="post">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    City
+                                </label>
+                                <div class="input-with-icon">
+                                    <select asp-for="CityRefId" id="location" class="form-control" asp-items="ViewBag.CityRefId">
+                                        <option value="">&nbsp;</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    Status
+                                </label>
+                                <div class="input-with-icon">
+                                    <select asp-for="GroupRefId" id="ptypes" class="form-control" asp-items="ViewBag.GroupRefId">
+                                        <option value="">&nbsp;</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-12 d-md-none d-lg-block">
+                            <div class="form-group">
+                                <label>
+                                    Type
+                                </label>
+                                <div class="input-with-icon">
+                                    <select asp-for="TypeRefId" id="mytypes" class="form-control" asp-items="ViewBag.TypeRefId">
+                                        <option value="">&nbsp;</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-3 col-sm-12">
+                            <div class="form-group none">
+                                <a asp-controller="RealEstate" asp-action="AdvanceSearch" class="collapsed ad-search" aria-controls="advance-search">
+                                    <i class="fa fa-sliders-h ml-2"></i>
+                                    Advance
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-1 col-md-2 col-sm-12 small-padd">
+                            <div class="form-group none">
+                                <button type="submit" class="btn btn-danger full-width">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

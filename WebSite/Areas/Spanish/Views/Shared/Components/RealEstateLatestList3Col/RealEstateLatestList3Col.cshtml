@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstate>
+
+<div class="single_widgets widget_thumb_post">
+    <div class="sidebar_featured_property">
+        <h4>
+            The latest
+        </h4>
+        <hr />
+        @foreach (var item in Model)
+        {
+            <div class="sides_list_property">
+                <div class="sides_list_property_thumb">
+                    <img src="/upload/realestate/thumb/@item.Photo" class="img-fluid" alt="@item.Photo" />
+                </div>
+                <div class="sides_list_property_detail">
+                    <h4>
+                        <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                            @if (item.Title!.Length > 30)
+                            {
+                                @item.Title.Substring(0, 29)
+                                <span>. . .</span>
+                            }
+                            else
+                            {
+                                @item.Title
+                            }
+                        </a>
+                    </h4>
+                    <span>
+                        <i class="ti-location-pin"></i>
+                        @item.City?.Title
+                    </span>
+                    <div class="lists_property_price">
+                        <div class="lists_property_types">
+                            <div class="property_types_vlix sale">
+                                @item.Group?.Title
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

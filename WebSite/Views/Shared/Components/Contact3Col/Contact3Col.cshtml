@@ -1,0 +1,47 @@
+﻿@model WebSite.DataLayer.Entities.Contact.Contact
+
+<div class="utf_box_widget margin-bottom-70">
+    <h3>
+        <i class="sl sl-icon-map"></i>
+        تماس با دریملند
+    </h3>
+    <div class="utf_sidebar_textbox">
+        <ul class="utf_contact_detail">
+            <li>
+                <strong>
+                    پشتیبانی: -
+                </strong>
+                <span>
+                    @Model.Mobile
+                </span>
+            </li>
+            <li>
+                <strong>
+                    وب سایت: -
+                </strong> <span>
+                    <a href="@Model.Website">
+                        @Model.Website
+                    </a>
+                </span>
+            </li>
+            <li>
+                <strong>
+                    ایمیل: -
+                </strong>
+                <span>
+                    <a href="mailto:@Model.Email">
+                        @Model.Email
+                    </a>
+                </span>
+            </li>
+            <li>
+                <strong>
+                    آدرس: -
+                </strong>
+                <span>
+                    @Model.Address
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

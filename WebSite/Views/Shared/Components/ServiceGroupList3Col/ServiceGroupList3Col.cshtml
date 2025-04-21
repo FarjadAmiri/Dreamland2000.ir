@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Service.ServiceGroup>
+
+<div class="single_widgets widget_category">
+    <h4 class="title">
+        خدمات دریملند   
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model!)
+        {
+            <li>
+                <a asp-controller="Service" asp-action="Index" asp-route-group="@item.Id" title="@item.Title">
+                    @item.Title
+                </a>
+            </li>          
+        }
+        <li>
+            <a asp-controller="Service" asp-action="Index" title="آشنایی با همه خدمات ما">
+                همه خدمات. . .
+            </a>
+        </li>
+        
+    </ul>
+</div>

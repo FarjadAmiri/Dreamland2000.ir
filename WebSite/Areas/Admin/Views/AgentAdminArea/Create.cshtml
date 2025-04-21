@@ -1,0 +1,175 @@
+﻿@model WebSite.Core.ViewModel.Agent.AddNewAgentByAdminViewModel
+
+@{
+    ViewData["Title"] = "New Agents";
+    int i = 0;
+}
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            Home Page
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="AgentAdminArea" asp-action="Index">
+                            Agents
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        New Agents
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="from-actions-top-bottom-center">
+                    New Agents
+                </h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <hr />
+                <partial name="_AlertPartial" />
+            </div>
+            <div class="collpase show">
+                <div class="card-body">
+
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        
+                        <input type="hidden" asp-for="LanguageRefId"/>
+                        <input type="hidden" asp-for="LanguageEnglishTitle" />
+                        <input type="hidden" asp-for="LanguageShortTitle" />
+
+                        <div class="row">
+                            <div class="col-lg-4">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">
+                                        Language
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" value="@Model.LanguageEnglishTitle" class="form-control" disabled="disabled">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        @{
+                                            var flag = Model.LanguageShortTitle + ".png";
+                                        }
+                                        <img src="/design/flags/@flag" style="width:100%" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Name" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Name" class="form-control">
+                                        <span asp-validation-for="Name" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Responsibility" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Responsibility" class="form-control">
+                                        <span asp-validation-for="Responsibility" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Sort" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Sort" class="form-control">
+                                        <span asp-validation-for="Sort" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Tell" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Tell" class="form-control">
+                                        <span asp-validation-for="Tell" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Email" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Email" class="form-control">
+                                        <span asp-validation-for="Email" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Address" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Address" class="form-control">
+                                        <span asp-validation-for="Address" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <textarea asp-for="Summary" rows="16" class="form-control"></textarea>
+                                        <span asp-validation-for="Summary" class="alert-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="form-group row">
+                                    <img id="image" style="width: 100%; height: 100%" class="img-thumbnail" src="/upload/agent/default.jpg"/>
+                                </div>
+                                <div class="form-group row">
+                                    <input type="file" data-buttonname="btn-secondary" name="uploadPhoto" id="uploadPhoto" tabindex="-1" style="position: absolute; clip: rect(0px, 0px, 0px, 0px);">
+                                    <div class="input-group">
+                                        <span class="input-group-append" tabindex="0">
+                                            <label for="uploadPhoto" class="btn btn-secondary ">
+                                                <span class="fa fa-folder-open"></span>
+                                                <span>
+                                                    Select Photo
+                                                </span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <hr/>
+                                <div class="form-group text-center">
+                                    <input type="submit" class="btn btn-success" value="New Agent"/>
+                                    <a asp-controller="AgentAdminArea" asp-action="Index" class="btn btn-dark">
+                                        Back
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section AdminFooter {
+    <partial name="_UploadPhotoScriptPartial" />
+    <partial name="_CkEditorSummaryWithoutToolbarScriptPartialEnglish" />
+}

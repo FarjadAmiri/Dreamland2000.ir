@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Testimonial.Testimonial>
+
+<section class="gray-simple">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-7 col-md-8">
+				<div class="sec-heading center">
+                    <h2>
+                        Good customer reviews
+                    </h2>
+                    <p>
+                        Good Dreamland customer reviews 
+                    </p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="item-slide space">
+					@foreach (var item in Model)
+                    {
+                        <div class="single_items">
+                            <div class="_testimonial_wrios">
+                                <div class="_testimonial_flex">
+                                    <div class="_testimonial_flex_first">
+                                        <div class="_tsl_flex_thumb">
+                                            <img src="/design/user.png" class="img-fluid" alt="@item.Name">
+                                        </div>
+                                        <div class="_tsl_flex_capst">
+                                            <h5>
+                                                @item.Name
+                                            </h5>
+                                            <div class="_ovr_posts">
+                                                <span>
+													Real estate
+                                                </span>
+                                            </div>
+                                            <div class="_ovr_rates"><span>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            4.7</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="facts-detail">
+                                    <p>
+                                        @item.Message
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+

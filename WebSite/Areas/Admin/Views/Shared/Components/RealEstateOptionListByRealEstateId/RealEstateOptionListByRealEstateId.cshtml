@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstateJoinOption>
+
+<section id="html5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="collapse show">
+                    <div class="card-body">
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.Admin.ViewComponents.TableRealEstateOptionList), new { list = Model })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

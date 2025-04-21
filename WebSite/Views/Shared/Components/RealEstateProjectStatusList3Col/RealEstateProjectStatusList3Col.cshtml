@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstateProjectStatus>
+
+
+<div class="single_widgets widget_category">
+    <h4 class="title">
+        وضعیت پروژه
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model!)
+        {
+            <li>
+                <a asp-controller="RealEstateProject" asp-action="Grid" asp-route-group="@item.Id" title="@item.Title">
+                    @item.Title
+                  
+                </a>
+            </li>          
+        }
+        <li>
+            <a asp-controller="RealEstateProject" asp-action="Grid" title="مشاهده همه پروژه های دریملند">
+                همه پروژه ها. . .
+            </a>
+        </li>
+        
+    </ul>
+</div>

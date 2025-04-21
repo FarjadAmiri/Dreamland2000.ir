@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Address.City>
+
+<div class="single_widgets widget_category">
+    <h4 class="title">
+        Cities
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a asp-controller="RealEstateProject" asp-action="Grid" asp-route-city="@item.Id" title="@item.Title">
+                    @item.Title
+                  
+                </a>
+            </li>          
+        }
+        <li>
+            <a asp-controller="RealEstateProject" asp-action="Grid" title="View All Project">
+                All Projects . . .
+            </a>
+        </li>
+        
+    </ul>
+</div>

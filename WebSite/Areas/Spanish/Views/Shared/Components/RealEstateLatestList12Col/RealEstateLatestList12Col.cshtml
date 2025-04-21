@@ -1,0 +1,147 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.RealEstate.RealEstate>
+
+<section>
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-10 text-center">
+                <div class="sec-heading center mb-4">
+                    <h2>
+                        Propiedad listada recientemente
+                    </h2>
+                    <p>
+                        Dreamland Real Estate Group ofrece las mejores propiedades en España
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center g-4">
+
+            @foreach (var item in Model)
+            {
+                var strPrice = "0";
+                if (item.Price != null && item.Price > 0)
+                {
+                    strPrice = Convert.ToDouble(item.Price.ToString()?.Replace(",", "")).ToString("n0");
+                }
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="property-listing property-2">
+
+                        <div class="listing-img-wrapper">
+                            <div class="_exlio_125">
+                                @item.Group?.Title
+                            </div>
+                            <div class="list-img-slide">
+                                <div class="click">
+                                    <div>
+                                        <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                            <img src="/upload/realestate/thumb/@item.Photo" class="img-fluid mx-auto" alt="" />
+                                        </a>
+                                    </div>
+                                    @foreach (var p in item.PhotoList!)
+                                    {
+                                        <div>
+                                            <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                <img src="/upload/realestate/thumb/@p.Photo" class="img-fluid mx-auto" alt="@p.Title" />
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="listing-detail-wrapper">
+                            <div class="listing-short-detail-wrap">
+                                <div class="_card_list_flex mb-2">
+                                    <div class="_card_flex_01">
+                                        <span class="_list_blickes _netork">
+                                            @item.Group?.Title
+                                        </span>
+                                        <span class="_list_blickes types">
+                                            @item.Type?.Title
+                                        </span>
+                                    </div>
+                                    <div class="_card_flex_last">
+                                        <div class="prt_saveed_12lk">
+                                            <label class="toggler toggler-danger">
+                                                <input type="checkbox">
+                                                <i class="ti-heart"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="_card_list_flex">
+                                    <div class="_card_flex_01">
+                                        <h4 class="listing-name verified" style="height:40px;">
+                                            <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-link-detail">
+                                                @item.Title
+                                            </a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="price-features-wrapper">
+                            <div class="list-fx-features">
+                                <div class="listing-card-info-icon">
+                                    <div class="inc-fleat-icon">
+                                        <img src="/english/img/bed.svg" width="15" alt="@item.RoomCount Room" />
+                                    </div>
+                                    @item.RoomCount Room
+                                </div>
+                                <div class="listing-card-info-icon">
+                                    <div class="inc-fleat-icon">
+                                        <img src="/english/img/bathtub.svg" width="15" alt="@item.BathroomCount Bathroom" />
+                                    </div>
+                                    @item.BathroomCount Bath
+                                </div>
+                                <div class="listing-card-info-icon">
+                                    <div class="inc-fleat-icon">
+                                        <img src="/english/img/move.svg" width="15" alt="@item.Area Meter" />
+                                    </div>
+                                    @item.Area M
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="listing-detail-footer">
+                            <div class="footer-first">
+                                <h6 class="listing-card-info-price text-danger mb-0 p-0">
+                                    @strPrice €
+                                    @if (item.GroupRefId == 6)
+                                    {
+                                        <span style="font-size:14px">
+                                            @item.RentPeriod?.Title
+                                        </span>
+                                    }
+                                </h6>
+
+                            </div>
+                            <div class="footer-flex">
+                                <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-view bg-danger">
+                                    Ver detalle
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="row mt-5">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                <a asp-controller="RealEstate" asp-action="Grid" title="Explorar más propiedades" class="btn btn-light-danger">
+                    Explorar más propiedades
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>

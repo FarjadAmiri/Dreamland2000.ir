@@ -1,0 +1,36 @@
+﻿@model WebSite.DataLayer.Entities.Agent.Agent
+
+<div class="sider_blocks_wrap">
+    <div class="side-booking-body">
+        <div class="agent-_blocks_title">
+
+            <div >
+                <img src="/upload/agent/thumb/@Model.Photo" alt="@Model.Name @Model.Responsibility" class="img-fluid">
+            </div>
+            <div class="agent-_blocks_caption" style="margin-top:20px">
+                <h4>
+                    @Model.Name
+                </h4>
+                <span class="approved-agent">
+                    <i class="ti-check"></i>
+                    @Model.Responsibility
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        
+        <a href="#" class="agent-btn-contact" data-bs-toggle="modal" data-bs-target="#autho-message">
+            <i class="ti-comment-alt"></i>
+            Message
+        </a>
+
+        <span id="number" data-last="@Model.Tell">
+            <span>
+                <a href="#" class="see">@Model.Tell</a>
+            </span>
+        </span>
+      
+    </div>
+</div>
+
+@await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.AgentSendMessageForm3Col), new { Model.Id })

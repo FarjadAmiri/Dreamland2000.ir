@@ -1,0 +1,31 @@
+﻿@using WebSite.Core.Utility
+@model IEnumerable<WebSite.DataLayer.Entities.Blog.Blog>
+<div class="single_widgets widget_thumb_post">
+    <h4 class="title">
+        جدیدترین مقالات
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <span class="left">
+                    <img src="/upload/blog/thumb/@item.Photo" alt="@item.Title" class="">
+                </span>
+                <span class="right">
+                    <a class="feed-title" asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                        @item.Title
+                    </a>
+                    <span class="post-date">
+                        <i class="ti-calendar"></i>
+                        @if (item.BlogDate != null)
+                        {
+                            @item.BlogDate.Value.GregorianToPersian()
+                        }
+                    </span>
+                </span>
+            </li>
+        }
+       
+    </ul>
+</div>

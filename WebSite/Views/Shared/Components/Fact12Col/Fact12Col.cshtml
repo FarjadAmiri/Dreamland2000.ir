@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Fact.Fact>
+<section class="p-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+
+                <div class="_awards_group">
+                    <ul class="_awards_lists four">
+                       @foreach (var item in Model.Take(4))
+                       {
+                           <li>
+                               <div class="_awards_list_wrap">
+                                   <div class="_awards_list_thumb op-1">
+                                       <img src="/upload/fact/@item.Photo" class="img-fluid" alt="@item.Title"/>
+                                   </div>
+                                   <div class="_awards_list_caption">
+                                       <h5>
+                                           @item.Value
+                                       </h5>
+                                       <span>
+                                           @item.Title
+                                       </span>
+                                   </div>
+                               </div>
+                           </li>
+                       }
+                       
+                      
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

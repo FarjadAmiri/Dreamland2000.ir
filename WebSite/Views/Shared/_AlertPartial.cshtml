@@ -1,0 +1,14 @@
+﻿@if (TempData["AlertMessage"] != null)
+{
+    <div class="ui_kit_message_box">
+        <div class="alert @TempData["AlertType"] margin-bottom-30" style="direction: rtl; text-align: right;">
+            <strong>
+                @TempData["AlertMessage"]
+            </strong>
+
+        </div>
+    </div>
+
+    TempData["AlertMessage"] = null;
+    TempData["AlertType"] = null;
+}

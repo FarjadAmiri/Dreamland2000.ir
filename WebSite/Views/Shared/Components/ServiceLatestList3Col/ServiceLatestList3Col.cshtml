@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebSite.DataLayer.Entities.Service.Service>
+<div class="single_widgets widget_thumb_post">
+    <h4 class="title">
+        خدمات ما
+    </h4>
+    <hr/>
+    <ul>
+        @foreach (var item in Model.Take(6))
+        {
+            <li>
+                <span class="left">
+                    <img src="/upload/service/thumb/@item.Photo" alt="@item.Title" class="">
+                </span>
+                <span class="right">
+                    <a class="feed-title" asp-controller="Service" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                        @item.Title
+                    </a>
+                    <span class="post-date">
+                        <i class="ti-folder"></i>
+                            @item.Group?.Title
+                    </span>
+                </span>
+            </li>
+        }
+       
+    </ul>
+</div>

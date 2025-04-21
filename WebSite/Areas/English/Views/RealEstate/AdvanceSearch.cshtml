@@ -1,0 +1,326 @@
+﻿@model WebSite.Core.ViewModel.RealEstate.RealEstateAdvanceSearchViewModelEnglish
+@{
+    ViewData["Title"] = "Advanced search";
+    ViewData["MetaDescription"] = "Dreamland Advanced Property Search";
+}
+<div class="page-title" style="background:#f4f4f4 url(/design/banner/header03.jpg);" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Advanced search
+                        </li>
+                    </ol>
+                    <h2 class="breadcrumb-title">
+                        Dreamland Advanced Property Search
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <form asp-action="AdvanceSearch" method="post">
+                    <div class="submit-page p-0">
+
+                        <div class="frm_submit_block">
+                            
+                            <div class="frm_submit_wrap">
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Title
+                                        </label>
+                                        <input asp-for="Title" type="text" class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Code
+                                        </label>
+                                        <input asp-for="Code" type="text" class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Group
+                                        </label>
+                                        <select asp-for="GroupRefId" id="status" class="form-control" asp-items="ViewBag.GroupRefId">
+                                            <option value="">&nbsp;</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            City
+                                        </label>
+                                        <select asp-for="CityRefId" id="cities" class="form-control" asp-items="ViewBag.CityRefId">
+                                            <option value="">&nbsp;</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Type
+                                        </label>
+                                        <select asp-for="TypeRefId" id="ptypes" class="form-control" asp-items="ViewBag.TypeRefId">
+                                            <option value="">&nbsp;</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Min Price
+                                        </label>
+                                        <input asp-for="MinPrice" type="number" class="form-control" placeholder="€">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Max Price
+                                        </label>
+                                        <input asp-for="MaxPrice" type="number" class="form-control" placeholder="€">
+                                    </div>
+
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Room
+                                        </label>
+                                        <select asp-for="RoomCount" id="bedrooms" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Bathroom
+                                        </label>
+                                        <select asp-for="BathroomCount" id="bathrooms" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Parking
+                                        </label>
+                                        <select asp-for="ParkingCount" id="parking" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Min Area
+                                        </label>
+                                        <input asp-for="MinArea" type="number" class="form-control" placeholder="Meter">
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Max Area
+                                        </label>
+                                        <input asp-for="MaxArea" type="number" class="form-control" placeholder="Meter">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                      
+                        <div class="frm_submit_block">
+                            <h3>
+                                Additional information
+                            </h3>
+                            <hr/>
+                            <div class="frm_submit_wrap">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                       
+                                        <div class="o-features">
+                                            <ul class="no-ul-list third-row">
+                                                @foreach (var item in Model.OptionList!)
+                                                {
+                                                    <li>
+                                                        <input  class="checkbox-custom" name="selectedOptions" type="checkbox">
+                                                        <label class="checkbox-custom-label">
+                                                            @item.Title
+                                                        </label>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12 col-md-12">
+                                <button class="btn btn-theme" type="submit">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<section class="gray pt-4">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row justify-content-center">
+
+                    @foreach (var item in Model.RealEstateList!)
+                    {
+                        var strPrice = "0";
+                        if (item.Price != null && item.Price > 0)
+                        {
+                            strPrice = Convert.ToDouble(item.Price.ToString()?.Replace(",", "")).ToString("n0") + " \u20ac";
+                        }
+
+                        var strArea = "0";
+                        if (item.Area != null && item.Area > 0)
+                        {
+                            strArea = Convert.ToDouble(item.Area.ToString()?.Replace(",", "")).ToString("n0") + " m\u00b2";
+                        }
+
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="property-listing property-2">
+
+                                <div class="listing-img-wrapper">
+                                    <div class="_exlio_125">
+                                        @item.Group?.Title
+                                    </div>
+                                    <div class="list-img-slide">
+                                        <div class="click">
+                                            <div>
+                                                <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                    <img src="/upload/realestate/thumb/@item.Photo" class="img-fluid mx-auto" alt="@item.Title" />
+                                                </a>
+                                            </div>
+                                            @foreach (var p in item.PhotoList!)
+                                            {
+                                                <div>
+                                                    <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title">
+                                                        <img src="/upload/realestate/thumb/@p.Photo" class="img-fluid mx-auto" alt="@item.Title" />
+                                                    </a>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="listing-detail-wrapper">
+                                    <div class="listing-short-detail-wrap">
+                                        <div class="_card_list_flex mb-2">
+                                            <div class="_card_flex_01">
+                                                <span class="_list_blickes _netork">
+                                                    @item.Type?.Title
+                                                </span>
+
+                                            </div>
+                                            <div class="_card_flex_last">
+                                                <div class="prt_saveed_12lk">
+                                                    <label class="toggler toggler-danger">
+                                                        <input type="checkbox">
+                                                        <i class="ti-heart"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="_card_list_flex">
+                                            <div class="_card_flex_01">
+                                                <h4 class="listing-name verified">
+                                                    <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-link-detail">
+                                                        @item.Title
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="price-features-wrapper">
+                                    <div class="list-fx-features">
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon">
+                                                <img src="/website/img/bed.svg" width="13" alt="" />
+                                            </div>
+                                            اتاق : @item.RoomCount
+                                        </div>
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon">
+                                                <img src="/website/img/bathtub.svg" width="13" alt="" />
+                                            </div>
+                                            حمام : @item.BathroomCount
+                                        </div>
+                                        <div class="listing-card-info-icon">
+                                            <div class="inc-fleat-icon">
+                                                <img src="/website/img/move.svg" width="13" alt="" />
+                                            </div>
+                                            @strArea
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="listing-detail-footer">
+                                    <div class="footer-first">
+                                        <h6 class="listing-card-info-price mb-0 p-0">
+                                            @strPrice
+                                        </h6>
+                                    </div>
+                                    <div class="footer-flex">
+                                        <a asp-controller="RealEstate" asp-action="Details" asp-route-id="@item.Id" title="@item.Title" class="prt-view">
+                                            View details
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

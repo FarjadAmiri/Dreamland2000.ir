@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebSite.Core.ViewModel.Blog.UploadBlogPhotoViewModel
+
+@{
+    ViewBag.Title = "Upload image";
+}
+
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+	            <ol class="breadcrumb">
+
+		            <li class="breadcrumb-item">
+			            <a asp-controller="Home" asp-action="Index">
+				            Home Page
+			            </a>
+		            </li>
+
+		            <li class="breadcrumb-item">
+                        <a asp-controller="BlogAdminArea" asp-action="Index">
+                            Blog
+			            </a>
+		            </li>
+
+		            <li class="breadcrumb-item active">
+                        Upload image
+		            </li>
+	            </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="from-actions-top-bottom-center">
+                    Upload image
+                </h4>
+                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <hr />
+                <partial name="_AlertPartial" />
+            </div>
+            <div class="collpase show">
+                <div class="card-body">
+
+	                <form asp-action="UploadMulti" method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" asp-for="BlogRefId" />
+
+		                <div class="row">
+							
+                            <div class="col-md-4"></div>
+
+			                <div class="col-md-4">
+
+                                <div class="form-group row">
+                                    <label asp-for="Title" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="Title" class="form-control">
+                                        <span asp-validation-for="Title" class="alert-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">
+                                        Select images
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="file" id="uploadPhotos" name="uploadPhotos" multiple class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4"></div>
+
+			                <div class="col-md-12" style="text-align: center">
+				                <div class="form-actions center">
+                                    <input type="submit" class="btn btn-success" value="Upload image">
+
+                                    <a class="btn btn-secondary" asp-controller="BlogAdminArea" asp-action="Details" asp-route-id="@Model.BlogRefId">
+						                Back
+					                </a>
+				                </div>
+			                </div>
+		                </div>
+	                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

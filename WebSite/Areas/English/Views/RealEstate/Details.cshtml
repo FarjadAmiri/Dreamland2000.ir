@@ -1,0 +1,680 @@
+﻿@using Microsoft.IdentityModel.Tokens
+@using WebSite.Core.Utility
+@model WebSite.DataLayer.Entities.RealEstate.RealEstate
+@{
+    ViewData["Title"] = Model!.Title;
+    ViewData["MetaDescription"] = Model.Title;
+    ViewData["MetaOgTitle"] = Model.Title;
+
+    ViewData["MetaOgDescription"] = Model.Summary!;
+    ViewData["MetaOgUrl"] = "https://dreamland2000.ir/en/realestate/" + Model.Id;
+
+    ViewData["MetaOgImage"] = "https://dreamland2000.ir/upload/realestate/thumb/" + Model.Photo;
+    ViewData["MetaOgImageUrl"] = "https://dreamland2000.ir/upload/realestate/thumb/" + Model.Photo;
+    ViewData["MetaOgImageAlt"] = Model.Title;
+    ViewData["MetaOgImageTitle"] = Model.Title;
+
+    var strPrice = "0";
+    if (Model.Price != null && Model.Price > 0)
+    {
+        strPrice = Convert.ToDouble(Model.Price.ToString()?.Replace(",", "")).ToString("n0");
+    }
+
+    var strArea = "0";
+    if (Model.Area != null && Model.Area > 0)
+    {
+        strArea = Convert.ToDouble(Model.Area.ToString()?.Replace(",", "")).ToString("n0");
+    }
+}
+@if (Model.PhotoList!.Any())
+{
+    <div class="featured_slick_gallery gray">
+        <div class="featured_slick_gallery-slide">
+            <div class="featured_slick_padd">
+                <a href="/upload/realestate/@Model.Photo" class="mfp-gallery">
+                    <img src="/upload/realestate/@Model.Photo" class="img-fluid mx-auto" alt="@Model.Title" />
+                </a>
+            </div>
+            @foreach (var item in Model.PhotoList!)
+            {
+                <div class="featured_slick_padd">
+                    <a href="/upload/realestate/@item.Photo" class="mfp-gallery">
+                        <img src="/upload/realestate/@item.Photo" class="img-fluid mx-auto" alt="@Model.Title" />
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+
+
+<section class="gallery_bottom_block">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12">
+
+                <div class="property_lexible-1">
+                    <div class="pr-price-into flex-1">
+                        <div class="_card_list_flex mb-2">
+                            <div class="_card_flex_01">
+                                <span class="_list_blickes _netork">
+                                    @Model.Group?.Title
+                                </span>
+                                <span class="_list_blickes types">
+                                    @Model.Type?.Title
+                                </span>
+                            </div>
+                        </div>
+                        <h2>
+                            @Model.Title
+                        </h2>
+                    </div>
+                    <div class="price_into_last">
+                        <h2 class="text-seegreen">
+                            @strPrice
+                            <span>
+                                €
+                                @if (Model.GroupRefId == 6)
+                                {
+                                    @Model.RentPeriod?.Title
+                                }
+                            </span>
+                        </h2>
+                        <div class="list-fx-features">
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/english/img/bed.svg" alt="@Model.RoomCount Room">
+                                    @Model.RoomCount
+                                </span>
+                            </div>
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/english/img/bath.svg" alt="@Model.BathroomCount Bathroom">
+                                    @Model.BathroomCount
+                                </span>
+                            </div>
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/english/img/area.svg" alt=" Area @strArea">
+                                    @strArea
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gray">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                @if (!Model.PhotoList!.Any())
+                {
+                    <div class="article_featured_image">
+                        <img class="img-fluid" src="/upload/realestate/@Model.Photo" alt="@Model.Title" style="width:100%">
+                    </div>
+                }
+
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            About Property
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <p>
+                            @Html.Raw(Model.Summary)
+                        </p>
+                    </div>
+
+                </div>
+
+               
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            Advance Features
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <ul class="row p-0 m-0">
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                Area: @strArea
+                            </li>
+
+                            @if (Model.BaseArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    Infrastructure: @Model.BaseArea M
+                                </li>
+                            }
+
+                            @if (Model.LandArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    Land: @Model.LandArea M
+                                </li>
+                            }
+
+                            @if (Model.TerraceArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    Terrace: @Model.TerraceArea M
+                                </li>
+                            }
+
+                            @if (Model.YardArea != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    Yard: @Model.YardArea M
+                                </li>
+                            }
+                            
+                            @if (Model.DirectionRefId != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                    Direction: @Model.Direction?.Title
+                                </li>
+                            }
+
+                            @if (Model.Floor != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-house-damage ml-1"></i>
+                                    Floor: @Model.Floor
+                                </li>
+                            }
+
+                            @if (Model.Unit != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-house-damage ml-1"></i>
+                                    Unit: @Model.Unit
+                                </li>
+                            }
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-bed ml-1"></i>
+                                Room: @Model.RoomCount
+                            </li>
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-bath ml-1"></i>
+                                Bathroom: @Model.BathroomCount
+                            </li>
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-car ml-1"></i>
+                                Parking: @Model.ParkingCount
+                            </li>
+
+                            @if (Model.BuildYear != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-building ml-1"></i>
+                                    Year of manufacture : @Model.BuildYear
+                                </li>
+                            }
+
+                            @if (Model.UnitCharge != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-dollar-sign ml-1"></i>
+                                    Charge: @Model.UnitCharge
+                                </li>
+                            }
+
+                            @if (Model.GarbageCost != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-dollar-sign ml-1"></i>
+                                    Garbage: @Model.GarbageCost
+                                </li>
+                            }
+
+                            @if (Model.UsageRefId != null)
+                            {
+                                <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                    <i class="fa fa-spa ml-1"></i>
+                                    Usage : @Model.Usage?.Title
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+
+                </div>
+                
+                @if (Model.OptionList!.Any())
+                {
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">
+                                Options
+                            </h4>
+                        </div>
+
+                        <div class="block-body">
+                            <ul class="avl-features third">
+                                @foreach (var item in Model.OptionList!)
+                                {
+                                    <li class="active">
+                                        @item.Option!.Title
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                }
+
+                @if (!Model.Iframe.IsNullOrEmpty())
+                {
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">Location</h4>
+                        </div>
+
+                        <div class="block-body">
+                            <div class="map-container">
+                                @Model.Iframe
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            @Model.CommentList!.Count Reviews
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+
+
+                        <div class="author-review">
+                            <div class="comment-list">
+                                <ul>
+                                    @foreach (var item in Model.CommentList!.Take(10))
+                                    {
+                                        <li class="article_comments_wrap">
+                                            <article>
+                                                <div class="article_comments_thumb">
+                                                    <img src="design/user.jpg" alt="@item.Name">
+                                                </div>
+                                                <div class="comment-details">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-left-meta">
+                                                            <h4 class="author-name">
+                                                                @item.Name
+                                                            </h4>
+                                                            <div class="comment-date">
+                                                                @item.SendDate.Value.ToShortDateString()
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p>
+                                                            @item.Comment
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        @if (Model.CommentList.Count > 10)
+                        {
+                            <a asp-controller="RealEstate" asp-action="CommentList" asp-route-id="@Model.Id" class="reviews-checked">
+                                More Reviews
+                            </a>
+                        }
+                    </div>
+
+                </div>
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateSendCommentForm), new { id = Model.Id })
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-12 col-sm-12">
+
+                <div class="property-sidebar">
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateSearch3Col))
+
+                    @if (Model.AgentRefId != null)
+                    {
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.AgentProfile3ColByAgentId), new { id = Model.AgentRefId })
+                    }
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateGroupList3Col))
+
+
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateCityList3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateLatestList3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateTypeList3Col))
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="featured_slick_gallery gray">
+    <div class="featured_slick_gallery-slide">
+        @if (Model.PhotoList.Any())
+        {
+
+            @foreach (var item in Model.PhotoList!)
+            {
+                <div class="featured_slick_padd">
+                    <a href="/upload/realestate/@item.Photo" class="mfp-gallery">
+                        <img src="/upload/realestate/@item.Photo" class="img-fluid mx-auto" alt="@item.Title" />
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="featured_slick_padd">
+                <a href="/upload/realestate/@Model.Photo" class="mfp-gallery">
+                    <img src="/upload/realestate/@Model.Photo" class="img-fluid mx-auto" alt="@Model.Title" />
+                </a>
+            </div>
+
+            <div class="featured_slick_padd">
+                <a href="/upload/realestate/@Model.Photo" class="mfp-gallery">
+                    <img src="/upload/realestate/@Model.Photo" class="img-fluid mx-auto" alt="@Model.Title" />
+                </a>
+            </div>
+
+            <div class="featured_slick_padd">
+                <a href="/upload/realestate/@Model.Photo" class="mfp-gallery">
+                    <img src="/upload/realestate/@Model.Photo" class="img-fluid mx-auto" alt="@Model.Title" />
+                </a>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+<section class="gallery_bottom_block">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12">
+
+                <div class="property_lexible-1">
+                    <div class="pr-price-into flex-1">
+                        <div class="_card_list_flex mb-2">
+                            <div class="_card_flex_01">
+                                <span class="_list_blickes _netork">
+                                    @Model.Group?.Title
+                                </span>
+                                <span class="_list_blickes types">
+                                    @Model.Type?.Title
+                                </span>
+                            </div>
+                        </div>
+                        <h2>
+                            @Model.Title
+                        </h2>
+                    </div>
+                    <div class="price_into_last">
+
+                        <h2>
+                            @strPrice
+                            @if (Model.GroupRefId == 2)
+                            {
+                                <span>
+                                    /  @Model.RentPeriod?.Title
+                                </span>
+                            }
+
+                        </h2>
+                        <div class="list-fx-features">
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/website/img/bed.svg" alt="@Model.Title">
+                                    @Model.RoomCount
+                                </span>
+                            </div>
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/website/img/bath.svg" alt="@Model.Title">
+                                    @Model.BathroomCount
+                                </span>
+                            </div>
+                            <div class="listing-card-info-icon">
+                                <span>
+                                    <img src="/website/img/area.svg" alt="@Model.Title">
+                                    @strArea
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            Description
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <p style="text-align:justify">
+                            @Html.Raw(Model.Summary)
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            Properties
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <ul class="row p-0 m-0">
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-expand-arrows-alt ml-1"></i>
+                                Area : @strArea
+                            </li>
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-bed ml-1"></i>
+                                Room : @Model.RoomCount
+                            </li>
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-bath ml-1"></i>
+                                Bathroom : @Model.BathroomCount
+                            </li>
+
+                            <li class="col-lg-4 col-md-6 mb-2 p-0">
+                                <i class="fa fa-car ml-1"></i>
+                                Parking : @Model.ParkingCount
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+                @if (Model.OptionList!.Any())
+                {
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">
+                                Options
+                            </h4>
+                        </div>
+
+                        <div class="block-body">
+                            <ul class="avl-features third">
+                                @foreach (var item in Model.OptionList!)
+                                {
+                                    <li class="active">
+                                        @item.Option!.Title
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                }
+
+                @if (!Model.Iframe.IsNullOrEmpty())
+                {
+                    <div class="property_block_wrap">
+
+                        <div class="property_block_wrap_header">
+                            <h4 class="property_block_title">
+                                Location
+                            </h4>
+                        </div>
+
+                        <div class="block-body">
+                            <div class="map-container">
+                                @Model.Iframe
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="property_block_wrap">
+
+                    <div class="property_block_wrap_header">
+                        <h4 class="property_block_title">
+                            Comments
+                            @Model.CommentList!.Count
+                        </h4>
+                    </div>
+
+                    <div class="block-body">
+                        <div class="author-review">
+                            <div class="comment-list">
+                                <ul>
+                                    @foreach (var item in Model.CommentList.Take(5))
+                                    {
+                                        <li class="article_comments_wrap">
+                                            <article>
+                                                <div class="article_comments_thumb">
+                                                    <img src="design/user.jpg" alt="@item.Name">
+                                                </div>
+                                                <div class="comment-details">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-left-meta">
+                                                            <h4 class="author-name">
+                                                                @item.Name
+                                                            </h4>
+                                                            <div class="comment-date">
+                                                                @if (item.SendDate != null)
+                                                                {
+                                                                    @item.SendDate.Value.GregorianToPersian()
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p style="text-align:justify">
+                                                            @item.Comment
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                        @if (Model.CommentList.Count > 5)
+                        {
+                            <a asp-controller="RealEstate" asp-action="CommentList" asp-route-id="@Model.Id" class="reviews-checked">
+                                More comments
+                            </a>
+                        }
+                    </div>
+
+                </div>
+
+                @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateSendCommentForm), new { id = Model.Id })
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="property-sidebar">
+                    
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateSearch3Col))
+
+                    @if (Model.AgentRefId != null)
+                    {
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.AgentProfile3ColByAgentId), new { id = Model.AgentRefId })
+                    }
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateGroupList3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateCityList3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateLatestList3Col))
+
+                    @await Component.InvokeAsync(typeof(WebSite.Areas.English.ViewComponents.RealEstateTypeList3Col))
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

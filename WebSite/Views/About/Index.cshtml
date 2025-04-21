@@ -1,0 +1,73 @@
+﻿@model WebSite.DataLayer.Entities.About.About
+@{
+    ViewData["Title"] = "درباره دریملند 2000";
+    ViewData["MetaDescription"] = "درباره نیروبیت اولین پرتال و مجله تخصصی در حوزه برق الکترونیک و انرژی";
+}
+
+
+<div class="page-title" style="background:#f4f4f4 url(/design/banner/header01.jpg);" data-overlay="5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+
+				<div class="breadcrumbs-wrap">
+					<ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @Model.Title
+                        </li>
+					</ol>
+                    <h2 class="breadcrumb-title">
+                       درباره گروه مشاوران دریملند بیشتر بدانید
+                    </h2>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="story-wrap explore-content">
+
+                    <h2>
+                        @Model.Title
+                    </h2>
+
+                    <span class="theme-cl">
+                        درباره گروه مشاوران دریملند 2000 بیشتر بدانید
+                    </span>
+
+                    <p class="mt-4">
+                        @Model.Summary
+                    </p>
+                    <a asp-controller="About" asp-action="Index" class="btn theme-bg btn-rounded">
+                        بیشتر درباره ما
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <img src="/design/banner/about.jpg" class="img-fluid rounded" alt="@Model.Title" />
+            </div> 
+            
+            <div class="col-lg-12 col-md-12 mt-4">
+                <p class="mb-3">
+                    @Html.Raw(Model.Content)
+                </p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+@await Component.InvokeAsync(typeof(WebSite.ViewComponents.Fact12Col))
+
+@await Component.InvokeAsync(typeof(WebSite.ViewComponents.AgentLatestList12Col))
+
+@await Component.InvokeAsync(typeof(WebSite.ViewComponents.TestimonialLatestListSlider12Col))
+
+@await Component.InvokeAsync(typeof(WebSite.ViewComponents.BlogLatestList12Col))

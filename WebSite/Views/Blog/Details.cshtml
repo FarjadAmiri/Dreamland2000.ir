@@ -1,0 +1,200 @@
+﻿@using WebSite
+@using WebSite.Core.Utility
+@using WebSite.DataLayer.Entities.About
+@model WebSite.DataLayer.Entities.Blog.Blog
+@{
+    var about = ViewBag.About as About;
+
+    ViewData["Title"] = Model!.Title;
+    ViewData["MetaDescription"] = Model.Title;
+    ViewData["MetaOgTitle"] = Model.Title;
+
+    ViewData["MetaOgDescription"] = Model.Summary!;
+    ViewData["MetaOgUrl"] = "https://dreamland2000.ir/blog/" + Model.Id;
+
+    ViewData["MetaOgImage"] = "https://dreamland2000.ir/upload/blog/thumb/" + Model.Photo;
+    ViewData["MetaOgImageUrl"] = "https://dreamland2000.ir/upload/blog/thumb/" + Model.Photo;
+    ViewData["MetaOgImageAlt"] = Model.Title;
+    ViewData["MetaOgImageTitle"] = Model.Title;
+
+
+}
+<div class="page-title" style="background:#f4f4f4 url(/design/banner/header03.jpg);" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">
+                            پروفایل
+                        </li>
+                    </ol>
+                    <h2 class="breadcrumb-title">
+                        @Model.Title
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="gray">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                <div class="article_detail_wrapss single_article_wrap format-standard">
+                    <div class="article_body_wrap">
+
+                        <div class="article_featured_image">
+                            <img class="img-fluid" src="/upload/blog/@Model.Photo" alt="">
+                        </div>
+
+                        <div class="article_top_info">
+                            <ul class="article_middle_info">
+                                <li>
+
+                                    <a href="#">
+                                        <span class="icons">
+                                            <i class="ti-user"></i>
+                                        </span>
+                                        نویسنده:
+                                        @Model.Author
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="icons">
+                                            <i class="ti-calendar"></i>
+                                        </span>
+                                       تاریخ : @if (Model.BlogDate != null)
+                                        {
+                                            @Model.BlogDate.Value.GregorianToPersian()
+                                        }
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="icons">
+                                            <i class="ti-comment-alt"></i>
+                                        </span>
+                                        دیدگاه : 
+                                        @Model.CommentList!.Count
+                                        
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">
+                                        <span class="icons">
+                                            <i class="ti-eye"></i>
+                                        </span>
+                                        بازدید : 
+                                        @Model.Visit
+                                        
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h2 class="post-title">
+                            @Model.Title
+                        </h2>
+
+                        <blockquote>
+                            <span class="icon"><i class="fas fa-quote-left"></i></span>
+                            <p class="text">
+                                @Model.Summary
+                            </p>
+                           
+                        </blockquote>
+                        <p>
+                            @Html.Raw(Model.Content)
+                        </p>
+                    </div>
+                </div>
+
+
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.About9Col))
+
+               
+                <div class="article_detail_wrapss single_article_wrap format-standard">
+
+                    <div class="comment-area">
+                        <div class="all-comments">
+                            <h3 class="comments-title">
+                                @Model.CommentList!.Count دیدگاه
+                            </h3>
+                            <div class="comment-list">
+                                <ul>
+                                    @foreach (var item in Model.CommentList)
+                                    {
+                                        <li class="article_comments_wrap">
+                                            <article>
+                                                <div class="article_comments_thumb">
+                                                    <img src="/design/user.jpg" alt="">
+                                                </div>
+                                                <div class="comment-details">
+                                                    <div class="comment-meta">
+                                                        <div class="comment-left-meta">
+                                                            <h4 class="author-name">
+                                                                @item.Name
+                                                                <span class="selected">
+                                                                    <i class="fas fa-bookmark"></i>
+                                                                </span>
+                                                            </h4>
+                                                            <div class="comment-date">
+                                                                @if (item.SendDate != null)
+                                                                {
+                                                                    @item.SendDate.Value.GregorianToPersian()
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="comment-reply">
+                                                            <a href="#" class="reply">
+                                                                <span class="icona">
+                                                                    <i class="ti-back-left"></i>
+                                                                </span> پاسخ
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <p>
+                                                            @item.Comment
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        @await Component.InvokeAsync(typeof(WebSite.ViewComponents.BlogSendCommentForm), new { id = Model.Id })
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.BlogSearch3Col))
+
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.BlogGroupList3Col))
+
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.BlogLatestList3Col))
+                
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.ServiceGroupList3Col))
+                
+                @await Component.InvokeAsync(typeof(WebSite.ViewComponents.BlogTagList3ColByBlogId), new { id = Model.Id })
+
+            </div>
+
+        </div>
+    </div>
+
+</section>

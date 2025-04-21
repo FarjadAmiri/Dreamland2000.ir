@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<WebSite.DataLayer.Entities.Agent.Agent>
+@{
+    ViewData["Title"] = "Agents";
+    int i = 0;
+}
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            Admin Panel
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            Home Page
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="AgentAdminArea" asp-action="Index">
+                            Agents
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Agents List
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="html5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Agents List
+                    </h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <hr />
+                    <partial name="_AlertPartial" />
+                    <p>
+                        <a class="btn btn-success" asp-controller="AgentAdminArea" asp-action="Create" asp-route-language="1">
+                            Persian New
+                        </a>
+                        
+                        <a class="btn btn-success" asp-controller="AgentAdminArea" asp-action="Create" asp-route-language="2">
+                            English New
+                        </a>
+                        
+                        <a class="btn btn-success" asp-controller="AgentAdminArea" asp-action="Create" asp-route-language="3">
+                            Spanish New
+                        </a>
+
+                        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">
+                            Back
+                        </a>
+                    </p>
+                </div>
+                <div class="collapse show">
+                    <div class="card-body">
+                        @await Component.InvokeAsync(typeof(WebSite.Areas.Admin.ViewComponents.TableAgentList), new { list = Model })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

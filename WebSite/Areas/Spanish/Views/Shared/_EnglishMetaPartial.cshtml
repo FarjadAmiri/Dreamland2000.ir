@@ -1,0 +1,114 @@
+﻿<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+@if (ViewData["Keywords"] != null)
+{
+    <meta name="keywords" content="@ViewData["Keywords"]">
+}
+else
+{
+    <meta name="keywords" content="realEstate,Spain Migration,Sell,Rent,DreamLand2000,Spain RealEstate">
+}
+
+@if (ViewData["Robots"] == null)
+{
+    <meta name="robots" content="index, follow">
+}
+else
+{
+    <meta name="robots" content="noindex,nofollow,noarchive">
+}
+
+@if (ViewData["MetaAuthor"] != null)
+{
+    <meta name="author" content="@ViewData["MetaAuthor"]">
+}
+else
+{
+    <meta name="author" content="DreamLand2000">
+}
+
+@if (ViewData["MetaDescription"] != null)
+{
+    <meta name="description" content="@ViewData["MetaDescription"]">
+}
+else
+{
+    <meta name="description" content="DreamLand2000">
+}
+
+<!-- og site name-->
+@if (ViewData["MetaOgSiteName"] != null)
+{
+    <meta property="og:site_name" value="@ViewData["MetaOgSiteName"]">
+}
+else
+{
+    <meta property="og:site_name" value="DreamLand2000">
+}
+
+<!-- og title-->
+@if (ViewData["MetaOgTitle"] != null)
+{
+    <meta property="og:title" content="@ViewData["MetaOgTitle"]">
+}
+else
+{
+    <meta property="og:title" content="DreamLand2000">
+}
+
+<!-- og url-->
+@if (ViewData["MetaOgUrl"] != null)
+{
+    <meta property="og:url" content="@ViewData["MetaOgUrl"]">
+}
+else
+{
+    <meta property="og:url" content="https://dreamland2000.ir/">
+}
+
+<meta property="og:type" content="dreamland2000">
+
+
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300" />
+<meta property="og:image:height" content="400" />
+
+@if (ViewData["MetaOgImage"] != null)
+{
+    <meta property="og:image" content="@ViewData["MetaOgImage"]">
+}
+else
+{
+    <meta property="og:image" content="https://dreamland2000.ir/design/logo/Logo02-s.png">
+}
+
+
+@if (ViewData["MetaOgImageUrl"] != null)
+{
+    <meta property="og:image:url" content="@ViewData["MetaOgImageUrl"]">
+}
+else
+{
+    <meta property="og:image:url" content="https://dreamland2000.ir/design/logo/Logo02-s.png">
+}
+
+
+@if (ViewData["MetaOgImageAlt"] != null)
+{
+    <meta property="og:image:alt" content="@ViewData["MetaOgImageAlt"]">
+}
+else
+{
+    <meta property="og:image:alt" content="DreamLand2000">
+}
+
+@if (ViewData["MetaOgDescription"] != null)
+{
+    <meta property="og:description" content="@ViewData["MetaOgDescription"]">
+}
+else
+{
+    <meta property="og:description" content="DreamLand2000">
+}

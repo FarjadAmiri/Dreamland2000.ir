@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html class="loading" lang="fa" data-textdirection="rtl">
+<head>
+    <title>
+        @ViewData["Title"]
+    </title>
+
+    <partial name="_UserMetaPartial" />
+    <partial name="_UserStylePartial" />
+
+    @await RenderSectionAsync("UserHeader", false)
+
+</head>
+<body class="horizontal-layout horizontal-menu 2-columns   menu-expanded" data-open="hover" data-menu="horizontal-menu" data-col="2-columns">
+
+    <partial name="_UserNavbarPartial" />
+<div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-static footer-light navbar-shadow">
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+            <span class="float-md-left d-block d-md-inline-block">
+                کلیه حقوق سایت محفوظ است
+            </span>
+            <span class="float-md-right d-block d-lg-block">
+                - طراحی و اجرا :
+                <a class="grey darken-2" href="http://farjadtech.ir" target="_blank">
+                    گروه نرم افزاری فرجاد
+                </a>
+            </span>
+        </p>
+    </footer>
+
+    <partial name="_UserScriptPartial" />
+    <partial name="_GoogleAnalyticPartial" />
+    <partial name="_GoogleReCaptchaPartial" />
+
+    @await RenderSectionAsync("UserFooter", false)
+
+</body>
+</html>

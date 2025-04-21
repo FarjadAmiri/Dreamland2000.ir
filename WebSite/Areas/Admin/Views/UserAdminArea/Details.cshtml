@@ -1,0 +1,255 @@
+﻿@using WebSite.Core.Utility
+@model WebSite.DataLayer.Entities.User.Users
+
+@{
+    ViewData["Title"] = "لیست کاربران";
+
+    //register date
+    string strRegisterDate = "";
+    if (Model.RegisterDate != null)
+    {
+        strRegisterDate = Model.RegisterDate.Value.GregorianToPersian();
+    }
+
+    //last update
+    string strLastUpdate = "";
+    if (Model.LastUpdate != null)
+    {
+        strLastUpdate = Model.LastUpdate.Value.GregorianToPersian();
+    }
+
+    //user active status
+    string strActiveStatus = "";
+    if (Model.IsActive == true)
+    {
+        strActiveStatus = "فعال";
+    }
+    if (Model.IsActive == false)
+    {
+        strActiveStatus = "غیر فعال";
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-6 col-12 mb-2">
+        <h3 class="content-header-title">
+            پیشخوان مدیر
+        </h3>
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">
+                            خانه
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a asp-controller="UserAdminArea" asp-action="Index">
+                            مدیریت کاربران
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        پروفایل کاربر
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="from-actions-top-bottom-center">
+                    پروفایل کاربر
+                    (
+                    @if (Model!.IsActive == true)
+                    {
+                        <span style="color: green">
+                            فعال
+                        </span>
+                    }
+                    else
+                    {
+                        <span style="color: red">
+                            غیر فعال
+                        </span>
+                    }
+                    )
+                </h4>
+                <hr />
+                <partial name="_AlertPartial" />
+                <p>
+                    <a class="btn btn-info" asp-controller="UserAdminArea" asp-action="Edit" asp-route-id="@Model.Id">
+                        بروزرسانی
+                    </a>
+
+                    <a class="btn btn-warning" asp-controller="UserAdminArea" asp-action="ResetPassword" asp-route-id="@Model.Id">
+                        ریست کلمه عبور
+                    </a>
+
+                    <a data-toggle="modal" data-target="#delete-confirm" class="btn btn-danger  text-white ">
+                        حذف کاربر
+                    </a>
+
+                    <a class="btn btn-secondary" asp-controller="UserAdminArea" asp-action="Index">
+                        بازگشت
+                    </a>
+                </p>
+            </div>
+            <div class="collpase show">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group row">
+                                <label asp-for="Mobile" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="Mobile" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="FirstName" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="FirstName" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="LastName" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="LastName" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="RegisterDate" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strRegisterDate" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="LastUpdate" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="@strLastUpdate" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="IsActive" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-5">
+                                    <input type="text" value="@strActiveStatus" class="form-control" disabled="disabled">
+                                </div>
+                                <div class="col-sm-3">
+                                    <a data-toggle="modal" data-target="#active-confirm" class="btn btn-success text-white">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+
+                                    <a data-toggle="modal" data-target="#deactive-confirm" class="btn btn-danger  text-white">
+                                        <i class="fa fa-close"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                           
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group row">
+                                <img id="image" style="width: 100%; height: 100%" class="img-thumbnail" src="/upload/user/@Model.Photo" />
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row">
+                        <div id="recent-transactions" class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        پروفایل کاربر
+                                    </h4>
+                                    <a class="heading-elements-toggle">
+                                        <i class="fa fa-ellipsis-v font-medium-3"></i>
+                                    </a>
+                                    <hr />
+                                </div>
+                                <div class="card-content">
+                                    <ul class="nav nav-tabs nav-linetriangle no-hover-bg">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="base-tab-job" data-toggle="tab" aria-controls="tab-job" href="#tab-job" aria-expanded="true">
+                                                مشاغل
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab-store" data-toggle="tab" aria-controls="tab-store" href="#tab-store" aria-expanded="false">
+                                                فروشگاه
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab-ads" data-toggle="tab" aria-controls="tab-ads" href="#tab-ads" aria-expanded="false">
+                                                آگهی
+                                            </a>
+                                        </li>
+                                        
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab-news" data-toggle="tab" aria-controls="tab-news" href="#tab-news" aria-expanded="false">
+                                                اخبار
+                                            </a>
+                                        </li>
+                                        
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab-sms" data-toggle="tab" aria-controls="tab-sms" href="#tab-sms" aria-expanded="false">
+                                                پیامک
+                                            </a>
+                                        </li>
+
+                                     
+
+                                    </ul>
+                                    <div class="tab-content px-1 pt-1">
+                                        <div role="tabpanel" class="tab-pane active" id="tab-job" aria-expanded="true" aria-labelledby="base-tab-job">
+                                        </div>
+
+                                        <div class="tab-pane" id="tab-store" aria-labelledby="base-tab-store">
+                                        </div>
+
+                                        <div class="tab-pane" id="tab-ads" aria-labelledby="base-tab-ads">
+                                        </div> 
+                                        
+                                        <div class="tab-pane" id="tab-news" aria-labelledby="base-tab-news">
+                                        </div> 
+                                        
+                                        <div class="tab-pane" id="tab-sms" aria-labelledby="base-tab-sms">
+                                           
+                                        </div>
+
+                                       
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿<script>
+    $("#StoreRefId").change(
+        function () {                       
+            $("#GroupRefId").empty();
+            if ($("#StoreRefId :selected").val() !== "-1") {
+                $.getJSON("/getstoreproductgroupbystoreid/" + $("#StoreRefId :selected").val(),
+                    function (data) {
+                        $.each(data,
+                            function () {
+                                $("#GroupRefId").append('<option value=' + this.value + '>' + this.text + '</option>');
+                            });
+                        $("#GroupRefId").prop("disabled", false);
+                    });
+            }
+
+            else {
+                $("#GroupRefId").append('<option value=-1>' + "--انتخاب گروه--" + '</option>');
+                $("#GroupRefId").prop("disabled", true);
+            }
+        });
+
+    window.onload = function () {
+        if ($("#GroupRefId :selected").val() !== "-1") {
+            $("#GroupRefId").prop("disabled", false);
+        }
+    };
+</script>
