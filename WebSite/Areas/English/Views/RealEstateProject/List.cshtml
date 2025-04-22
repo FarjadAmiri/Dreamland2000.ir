@@ -18,13 +18,13 @@
                             <li class="list-inline-item">
                                 <a asp-controller="RealEstateProject" asp-action="Grid" title="Dreamland Property">
                                     <span class="ti-layout-grid2"></span>
-                                    شبکه
+                                    Grid
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a asp-controller="RealEstateProject" asp-action="List" title="Dreamland Property" class="active">
                                     <span class="ti-view-list"></span>
-                                    لیست
+                                    List
                                 </a>
                             </li>
 
@@ -35,7 +35,7 @@
                         <div class="shorting_pagination">
                             <div class="shorting_pagination_laft">
                                 <h5>
-                                    نمایش 1-24 از  @Model.TotalCount نتیجه
+                                    Showing 1-24 of @Model.TotalCount results
                                 </h5>
                             </div>
                             <div class="shorting_pagination_right">
@@ -56,26 +56,26 @@
                     <div class="col-lg-3 col-md-6 col-sm-12 order-lg-3 order-md-2 col-sm-6">
                         <div class="shorting-right">
                             <label>
-                                مرتب سازی :
+                                Short By:
                             </label>
                             <div class="dropdown show">
                                 <a class="btn btn-filter dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="selection">
-                                        بیشترین امتیاز
+                                        Most Rated
                                     </span>
                                 </a>
                                 <div class="drp-select dropdown-menu">
-                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
-                                        بیشترین امتیاز
+                                    <a class="dropdown-item" asp-controller="RealEstate" asp-action="Grid">
+                                        Most Rated
                                     </a>
-                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
-                                        بیشترین بازدید
+                                    <a class="dropdown-item" asp-controller="RealEstate" asp-action="Grid">
+                                        Most View
                                     </a>
-                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
-                                        جدیدترین ها
+                                    <a class="dropdown-item" asp-controller="RealEstate" asp-action="Grid">
+                                        News Listings
                                     </a>
-                                    <a class="dropdown-item" asp-controller="RealEstateProject" asp-action="List">
-                                        بالاترین امتیاز
+                                    <a class="dropdown-item" asp-controller="RealEstate" asp-action="Grid">
+                                        High Rated
                                     </a>
                                 </div>
                             </div>
