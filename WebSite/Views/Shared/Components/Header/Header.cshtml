@@ -113,7 +113,7 @@
                             @if (User.Identity!.IsAuthenticated)
                             {
                                 <li>
-                                    <a asp-controller="About" asp-action="Index" title="درباره گروه مشاوران دریملند">
+                                    <a asp-controller="Home" asp-action="Index" asp-area="User" title="پیشخوان کاربری">
                                         پیشخوان کاربری
                                     </a>
                                 </li>
@@ -164,12 +164,12 @@
                             </span>
                         </a>
                         
-                        <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green">
+                       @*  <a asp-controller="Home" asp-action="Index" asp-area="English" class="alio_green">
                             <img src="/design/flags/Es.png" style="width:30px;height:20px" />
                             <span class="mr-1">
                                 اسپانیایی
                             </span>
-                        </a>
+                        </a> *@
                     </li>
 
                 </ul>
@@ -185,11 +185,11 @@
                             <img src="/design/flags/En.png" style="width:30px;height:20px" />
                         </a>
                     </li>
-                    <li style="padding-left:1px;padding-right:1px">
+                   @*  <li style="padding-left:1px;padding-right:1px">
                         <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green" style="padding-left:1px;padding-right:1px">
                             <img src="/design/flags/Es.png" style="width:30px;height:20px" />
                         </a>
-                    </li>
+                    </li> *@
 
                     <li class="add-listing">
                         

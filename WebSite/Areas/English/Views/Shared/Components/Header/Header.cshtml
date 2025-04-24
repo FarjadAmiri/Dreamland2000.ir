@@ -114,7 +114,7 @@
                             @if (User.Identity!.IsAuthenticated)
                             {
                                 <li>
-                                    <a asp-controller="Home" asp-action="Index" asp-are="UserEnglish" title="Dreamland User Panel">
+                                    <a asp-controller="Home" asp-action="Index" asp-are="User" title="Dreamland User Panel">
                                         User Panel
                                     </a>
                                 </li>
@@ -161,12 +161,12 @@
                                 English
                             </span>
                         </a>
-                        <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green">
+                       @*  <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green">
                             <img src="/design/flags/Es.png" style="width:30px;height:20px" />
                             <span class="ml-1">
                                 Spanish
                             </span>
-                        </a>
+                        </a> *@
                     </li>
 
                 </ul>
@@ -183,11 +183,11 @@
                             <img src="/design/flags/En.png" style="width:30px;height:20px" />
                         </a>
                     </li>
-                    <li style="padding-left:1px;padding-right:1px">
+                   @*  <li style="padding-left:1px;padding-right:1px">
                         <a asp-controller="Home" asp-action="Index" asp-area="Spanish" class="alio_green" style="padding-left:1px;padding-right:1px">
                             <img src="/design/flags/Es.png" style="width:30px;height:20px" />
                         </a>
-                    </li>
+                    </li> *@
 
 
                     <li class="add-listing">
